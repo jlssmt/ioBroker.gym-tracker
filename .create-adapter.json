@@ -1,0 +1,40 @@
+{
+    "cli": true,
+    "adapterName": "mcfit",
+    "title": "McFit",
+    "keywords": [
+        "mcfit",
+        "fitness"
+    ],
+    "expert": "yes",
+    "features": [
+        "adapter"
+    ],
+    "adminFeatures": [],
+    "type": "health",
+    "startMode": "schedule",
+    "scheduleStartOnChange": "yes",
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "connectionIndicator": "no",
+    "language": "TypeScript",
+    "adminReact": "yes",
+    "tools": [
+        "ESLint"
+    ],
+    "releaseScript": "yes",
+    "devServer": "yes",
+    "devServerPort": 8081,
+    "indentation": "Space (4)",
+    "quotes": "single",
+    "es6class": "yes",
+    "authorName": "jlssmt",
+    "authorGithub": "jlssmt",
+    "authorEmail": "i-hate-spammers-emails-wont-be-read@gmail.com",
+    "gitRemoteProtocol": "HTTPS",
+    "gitCommit": "yes",
+    "license": "MIT License",
+    "ci": "gh-actions",
+    "dependabot": "yes",
+    "creatorVersion": "1.34.1"
+}
