@@ -2,6 +2,7 @@
  * Created with @iobroker/create-adapter v1.34.1
  */
 import * as utils from '@iobroker/adapter-core';
+import axios from 'axios';
 
 class Mcfit extends utils.Adapter {
 
@@ -19,6 +20,12 @@ class Mcfit extends utils.Adapter {
      */
     private async onReady(): Promise<void> {
         this.log.debug('started');
+        const id = 1832287070;
+        await axios.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${id}`)
+            .then(response => response.data.items)
+            .then(result => console.log(result))
+            .catch(error => this.log.error(error));
+
     }
 
     /**

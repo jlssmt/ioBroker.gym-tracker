@@ -18,11 +18,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 /*
  * Created with @iobroker/create-adapter v1.34.1
  */
 const utils = __importStar(require("@iobroker/adapter-core"));
+const axios_1 = __importDefault(require("axios"));
 class Mcfit extends utils.Adapter {
     constructor(options = {}) {
         super({
@@ -37,6 +41,11 @@ class Mcfit extends utils.Adapter {
      */
     async onReady() {
         this.log.debug('started');
+        const id = 1832287070;
+        await axios_1.default.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${id}`)
+            .then(response => response.data.items)
+            .then(result => console.log(result))
+            .catch(error => this.log.error(error));
     }
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
