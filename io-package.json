@@ -1,77 +1,74 @@
 {
-    "common": {
-        "name": "mcfit",
-        "version": "0.0.1",
-        "news": {
-            "0.0.1": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
-            }
-        },
-        "titleLang": {
-            "en": "McFit",
-            "de": "McFit",
-            "ru": "McFit",
-            "pt": "McFit",
-            "nl": "McFit",
-            "fr": "McFit",
-            "it": "McFit",
-            "es": "McFit",
-            "pl": "McFit",
-            "zh-cn": "麦克菲特"
-        },
-        "desc": {
-            "en": "mcfit",
-            "de": "mcfit",
-            "ru": "mcfit",
-            "pt": "Mcfit",
-            "nl": "mcfit",
-            "fr": "mcfit",
-            "it": "mcfit",
-            "es": "McFit",
-            "pl": "mcfit",
-            "zh-cn": "麦克菲特"
-        },
-        "authors": [
-            "jlssmt <i-hate-spammers-emails-wont-be-read@gmail.com>"
-        ],
-        "keywords": [
-            "mcfit",
-            "fitness"
-        ],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "main": "build/main.js",
-        "icon": "mcfit.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/jlssmt/ioBroker.mcfit/master/admin/mcfit.png",
-        "readme": "https://github.com/jlssmt/ioBroker.mcfit/blob/master/README.md",
-        "loglevel": "info",
-        "mode": "schedule",
-        "allowInit": true,
-        "type": "health",
-        "compact": true,
-        "connectionType": "cloud",
-        "dataSource": "poll",
-        "materialize": true,
-        "dependencies": [
-            {
-                "js-controller": ">=2.0.0"
-            }
-        ]
+  "common": {
+    "name": "mcfit",
+    "version": "0.0.1",
+    "news": {
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Начальная версия",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "zh-cn": "首次出版"
+      }
     },
-    "native": {
-        "option1": true,
-        "option2": "42"
+    "titleLang": {
+      "en": "McFit",
+      "de": "McFit",
+      "ru": "McFit",
+      "pt": "McFit",
+      "nl": "McFit",
+      "fr": "McFit",
+      "it": "McFit",
+      "es": "McFit",
+      "pl": "McFit",
+      "zh-cn": "麦克菲特"
     },
-    "objects": [],
-    "instanceObjects": []
+    "desc": {
+      "en": "mcfit",
+      "de": "mcfit",
+      "ru": "mcfit",
+      "pt": "Mcfit",
+      "nl": "mcfit",
+      "fr": "mcfit",
+      "it": "mcfit",
+      "es": "McFit",
+      "pl": "mcfit",
+      "zh-cn": "麦克菲特"
+    },
+    "authors": [
+      "jlssmt <i-hate-spammers-emails-wont-be-read@gmail.com>"
+    ],
+    "keywords": [
+      "mcfit",
+      "fitness"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "build/main.js",
+    "icon": "mcfit.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/jlssmt/ioBroker.mcfit/master/admin/mcfit.png",
+    "readme": "https://github.com/jlssmt/ioBroker.mcfit/blob/master/README.md",
+    "loglevel": "info",
+    "mode": "schedule",
+    "allowInit": true,
+    "type": "health",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "materialize": true,
+    "dependencies": [
+      {
+        "js-controller": ">=2.0.0"
+      }
+    ]
+  },
+  "native": {},
+  "objects": [],
+  "instanceObjects": []
 }
