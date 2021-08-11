@@ -56,6 +56,7 @@
     "readme": "https://github.com/jlssmt/ioBroker.mcfit/blob/master/README.md",
     "loglevel": "info",
     "mode": "schedule",
+    "schedule": "*/15 * * * *",
     "allowInit": true,
     "type": "health",
     "compact": true,
