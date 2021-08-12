@@ -1,6 +1,6 @@
 {
   "common": {
-    "name": "mcfit",
+    "name": "gym-tracker",
     "version": "0.0.1",
     "news": {
       "0.0.1": {
@@ -17,43 +17,47 @@
       }
     },
     "titleLang": {
-      "en": "McFit",
-      "de": "McFit",
-      "ru": "McFit",
-      "pt": "McFit",
-      "nl": "McFit",
-      "fr": "McFit",
-      "it": "McFit",
-      "es": "McFit",
-      "pl": "McFit",
-      "zh-cn": "麦克菲特"
+      "en": "Gym tracker",
+      "de": "Gym tracker",
+      "ru": "Gym tracker",
+      "pt": "Gym tracker",
+      "nl": "Gym tracker",
+      "fr": "Gym tracker",
+      "it": "Gym tracker",
+      "es": "Gym tracker",
+      "pl": "Gym tracker",
+      "zh-cn": "TODO"
     },
     "desc": {
-      "en": "mcfit",
-      "de": "mcfit",
-      "ru": "mcfit",
-      "pt": "Mcfit",
-      "nl": "mcfit",
-      "fr": "mcfit",
-      "it": "mcfit",
-      "es": "McFit",
-      "pl": "mcfit",
-      "zh-cn": "麦克菲特"
+      "en": "Gym tracker",
+      "de": "Gym tracker",
+      "ru": "Gym tracker",
+      "pt": "Gym tracker",
+      "nl": "Gym tracker",
+      "fr": "Gym tracker",
+      "it": "Gym tracker",
+      "es": "Gym tracker",
+      "pl": "Gym tracker",
+      "zh-cn": "TODO"
     },
     "authors": [
       "jlssmt <i-hate-spammers-emails-wont-be-read@gmail.com>"
     ],
     "keywords": [
       "mcfit",
-      "fitness"
+      "johnreed",
+      "high5",
+      "rsg group",
+      "fitness",
+      "gym"
     ],
     "license": "MIT",
     "platform": "Javascript/Node.js",
     "main": "build/main.js",
-    "icon": "mcfit.png",
+    "icon": "gym-tracker.png",
     "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/jlssmt/ioBroker.mcfit/master/admin/mcfit.png",
-    "readme": "https://github.com/jlssmt/ioBroker.mcfit/blob/master/README.md",
+    "extIcon": "https://raw.githubusercontent.com/jlssmt/ioBroker.gym-tracker/master/admin/gym-tracker.png",
+    "readme": "https://github.com/jlssmt/ioBroker.gym-tracker/blob/master/README.md",
     "loglevel": "info",
     "mode": "schedule",
     "schedule": "*/15 * * * *",

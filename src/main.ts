@@ -4,12 +4,12 @@
 import * as utils from '@iobroker/adapter-core';
 import axios from 'axios';
 
-class Mcfit extends utils.Adapter {
+class GymTracking extends utils.Adapter {
 
     public constructor(options: Partial<utils.AdapterOptions> = {}) {
         super({
             ...options,
-            name: 'mcfit',
+            name: 'gym-tracker',
         });
         this.on('ready', this.onReady.bind(this));
         this.on('unload', this.onUnload.bind(this));
@@ -81,8 +81,8 @@ class Mcfit extends utils.Adapter {
 
 if (require.main !== module) {
     // Export the constructor in compact mode
-    module.exports = (options: Partial<utils.AdapterOptions> | undefined) => new Mcfit(options);
+    module.exports = (options: Partial<utils.AdapterOptions> | undefined) => new GymTracking(options);
 } else {
     // otherwise start the instance directly
-    (() => new Mcfit())();
+    (() => new GymTracking())();
 }

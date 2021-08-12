@@ -1,17 +1,17 @@
-![Logo](admin/mcfit.png)
-# ioBroker.mcfit
+![Logo](admin/gym-tracker.png)
+# ioBroker.gym-tracker
 
-[![NPM version](https://img.shields.io/npm/v/iobroker.mcfit.svg)](https://www.npmjs.com/package/iobroker.mcfit)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.mcfit.svg)](https://www.npmjs.com/package/iobroker.mcfit)
-![Number of Installations (latest)](https://iobroker.live/badges/mcfit-installed.svg)
-![Number of Installations (stable)](https://iobroker.live/badges/mcfit-stable.svg)
-[![Dependency Status](https://img.shields.io/david/jlssmt/iobroker.mcfit.svg)](https://david-dm.org/jlssmt/iobroker.mcfit)
+[![NPM version](https://img.shields.io/npm/v/iobroker.gym-tracker.svg)](https://www.npmjs.com/package/iobroker.gym-tracker)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.gym-tracker.svg)](https://www.npmjs.com/package/iobroker.gym-tracker)
+![Number of Installations (latest)](https://iobroker.live/badges/gym-tracker-installed.svg)
+![Number of Installations (stable)](https://iobroker.live/badges/gym-tracker-stable.svg)
+[![Dependency Status](https://img.shields.io/david/jlssmt/iobroker.gym-tracker.svg)](https://david-dm.org/jlssmt/iobroker.gym-tracker)
 
-[![NPM](https://nodei.co/npm/iobroker.mcfit.png?downloads=true)](https://nodei.co/npm/iobroker.mcfit/)
+[![NPM](https://nodei.co/npm/iobroker.gym-tracker.png?downloads=true)](https://nodei.co/npm/iobroker.gym-tracker/)
 
-**Tests:** ![Test and Release](https://github.com/jlssmt/ioBroker.mcfit/workflows/Test%20and%20Release/badge.svg)
+**Tests:** ![Test and Release](https://github.com/jlssmt/ioBroker.gym-tracker/workflows/Test%20and%20Release/badge.svg)
 
-## mcfit adapter for ioBroker
+## gym-tracker adapter for ioBroker
 
 Describe your project here
 
@@ -21,13 +21,13 @@ This section is intended for the developer. It can be deleted later
 ### Getting started
 
 You are almost done, only a few steps left:
-1. Create a new repository on GitHub with the name `ioBroker.mcfit`
+1. Create a new repository on GitHub with the name `ioBroker.gym-tracker`
 
 1. Push all files to the GitHub repo. The creator has already set up the local repository for you:  
     ```bash
     git push origin master
     ```
-1. Add a new secret under https://github.com/jlssmt/ioBroker.mcfit/settings/secrets. It must be named `AUTO_MERGE_TOKEN` and contain a personal access token with push access to the repository, e.g. yours. You can create a new token under https://github.com/settings/tokens.
+1. Add a new secret under https://github.com/jlssmt/ioBroker.gym-tracker/settings/secrets. It must be named `AUTO_MERGE_TOKEN` and contain a personal access token with push access to the repository, e.g. yours. You can create a new token under https://github.com/settings/tokens.
 
 1. Head over to [src/main.ts](src/main.ts) and start programming!
 

@@ -1,20 +1,24 @@
 {
-  "name": "iobroker.mcfit",
+  "name": "iobroker.gym-tracker",
   "version": "0.0.1",
-  "description": "mcfit",
+  "description": "Gym tracker",
   "author": {
     "name": "jlssmt",
     "email": "i-hate-spammers-emails-wont-be-read@gmail.com"
   },
-  "homepage": "https://github.com/jlssmt/ioBroker.mcfit",
+  "homepage": "https://github.com/jlssmt/ioBroker.gym-tracker",
   "license": "MIT",
   "keywords": [
     "mcfit",
-    "fitness"
+    "johnreed",
+    "high5",
+    "rsg group",
+    "fitness",
+    "gym"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/jlssmt/ioBroker.mcfit"
+    "url": "https://github.com/jlssmt/ioBroker.gym-tracker"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.5.1",
@@ -79,7 +83,7 @@
     "release": "release-script"
   },
   "bugs": {
-    "url": "https://github.com/jlssmt/ioBroker.mcfit/issues"
+    "url": "https://github.com/jlssmt/ioBroker.gym-tracker/issues"
   },
   "readmeFilename": "README.md"
 }
