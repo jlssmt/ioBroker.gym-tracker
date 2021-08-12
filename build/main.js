@@ -27,11 +27,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const utils = __importStar(require("@iobroker/adapter-core"));
 const axios_1 = __importDefault(require("axios"));
-class Mcfit extends utils.Adapter {
+class GymTracker extends utils.Adapter {
     constructor(options = {}) {
         super({
             ...options,
-            name: 'mcfit',
+            name: 'gym-tracker',
         });
         this.on('ready', this.onReady.bind(this));
         this.on('unload', this.onUnload.bind(this));
@@ -96,10 +96,10 @@ class Mcfit extends utils.Adapter {
 }
 if (require.main !== module) {
     // Export the constructor in compact mode
-    module.exports = (options) => new Mcfit(options);
+    module.exports = (options) => new GymTracker(options);
 }
 else {
     // otherwise start the instance directly
-    (() => new Mcfit())();
+    (() => new GymTracker())();
 }
 //# sourceMappingURL=main.js.map

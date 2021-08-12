@@ -4,7 +4,7 @@
 import * as utils from '@iobroker/adapter-core';
 import axios from 'axios';
 
-class GymTracking extends utils.Adapter {
+class GymTracker extends utils.Adapter {
 
     public constructor(options: Partial<utils.AdapterOptions> = {}) {
         super({
@@ -81,8 +81,8 @@ class GymTracking extends utils.Adapter {
 
 if (require.main !== module) {
     // Export the constructor in compact mode
-    module.exports = (options: Partial<utils.AdapterOptions> | undefined) => new GymTracking(options);
+    module.exports = (options: Partial<utils.AdapterOptions> | undefined) => new GymTracker(options);
 } else {
     // otherwise start the instance directly
-    (() => new GymTracking())();
+    (() => new GymTracker())();
 }
