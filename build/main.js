@@ -41,15 +41,11 @@ class Mcfit extends utils.Adapter {
      */
     async onReady() {
         this.log.debug('start');
-        const studios = await axios_1.default.get('https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2')
-            .then(response => response.data)
-            .then(data => data.reduce((acc, studio) => [...acc, { 'id': studio.id, 'name': studio.studioName }], []))
-            .catch(error => this.log.error(error));
-        const id = studios.filter(studio => studio.name.includes('Bamberg'))[0].id;
-        await axios_1.default.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${id}`)
-            .then(response => response.data.items)
-            .then(response => console.log(response))
-            .catch(error => this.log.error(error));
+        for (const studioId of this.config.checkedStudios || []) {
+            axios_1.default.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${studioId}`)
+                .then(response => response.data.items)
+                .catch(error => this.log.error(error));
+        }
         this.log.debug('end');
     }
     /**

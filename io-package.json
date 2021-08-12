@@ -69,7 +69,9 @@
       }
     ]
   },
-  "native": {},
+  "native": {
+    "checkedStudios": []
+  },
   "objects": [],
   "instanceObjects": []
 }

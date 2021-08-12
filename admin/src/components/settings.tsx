@@ -1,3 +1,5 @@
+import { Grid } from '@material-ui/core';
+import axios from 'axios';
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles';
@@ -10,6 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import I18n from '@iobroker/adapter-react/i18n';
+import { StudioInterface } from '../types/studio.interface';
 
 const styles = (): Record<string, CreateCSSProperties> => ({
     input: {
@@ -52,14 +55,28 @@ interface SettingsProps {
 }
 
 interface SettingsState {
-    // add your state properties here
-    dummy?: undefined;
+    studios: StudioInterface[];
 }
 
 class Settings extends React.Component<SettingsProps, SettingsState> {
     constructor(props: SettingsProps) {
         super(props);
-        this.state = {};
+        this.state = {
+            studios: [],
+        };
+
+        axios.get('https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2')
+            .then(response => response.data)
+            .then(data => data.reduce((acc: StudioInterface[], studio: any) =>
+                [...acc, {
+                    'id': studio.id,
+                    'name': studio.studioName,
+                    'checked': this.props.native.checkedStudios.indexOf(studio.id) !== -1,
+                }], []),
+            )
+            .then(data=> data.sort((a, b) => a.name > b.name && 1 || -1))
+            .then(result => this.setState(state => ({ ...state, studios: result })))
+            .catch(error => console.log(error));
     }
 
     renderInput(title: AdminWord, attr: string, type: string) {
@@ -126,12 +143,33 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
         );
     }
 
+    handleCheckboxChange(id, value) {
+        if (value) {
+            if (this.props.native.checkedStudios.indexOf(id) !== -1) return;
+            this.props.onChange('checkedStudios', [...this.props.native.checkedStudios, id]);
+        } else {
+            this.props.onChange('checkedStudios', this.props.native.checkedStudios.filter(currId => currId !== id));
+        }
+    }
+
     render() {
         return (
-            <form className={this.props.classes.tab}>
-                {this.renderCheckbox('option1', 'option1')}<br />
-                {this.renderInput('option2', 'option2', 'text')}
-            </form>
+            <Grid container style={{ height: '80%', overflow: 'scroll' }}>
+                {this.state.studios.map(studio => (
+                    <Grid item lg={2} md={3} sm={6} xs={12} key={`studio-checkbox-${studio.id}`}>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    color="primary"
+                                    defaultChecked={studio.checked}
+                                    onChange={(e) => this.handleCheckboxChange(studio.id, e.target.checked)}
+                                />
+                            }
+                            label={studio.name}
+                        />
+                    </Grid>
+                ))}
+            </Grid>
         );
     }
 }
