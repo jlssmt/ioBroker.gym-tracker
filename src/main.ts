@@ -25,24 +25,23 @@ class Mcfit extends utils.Adapter {
             axios.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${studio.id}`)
                 .then(response => response.data.items)
                 .then(result => {
-                    this.createAdapterChannel(studio.id.toString(), studio.name);
-                    console.log(result);
-                    return result;
-                })
-                .then(result => {
-                    for (const hour of result) {
-                        this.createAdapterFolder(`${studio.id}.${hour.startTime.slice(0, 2)}`, hour.startTime);
-                        for (const key of Object.keys(hour)) {
-                            this.createAdapterState(`${studio.id}.${hour.startTime.slice(0, 2)}.${key}`, key, typeof hour[key] === 'number' ? 'number' : 'string');
-                            this.setState(`${studio.id}.${hour.startTime.slice(0, 2)}.${key}`, hour[key], true);
-                        }
-                    }
+                    return this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel')
+                        .then(() => {
+                            for (const hour of result) {
+                                this.extendAdapterObjectAsync(`${studio.id}.${hour.startTime.slice(0, 2)}`, hour.startTime, 'folder')
+                                    .then(() => {
+                                        for (const key of Object.keys(hour)) {
+                                            this.createAdapterStateIfNotExistsAsync(`${studio.id}.${hour.startTime.slice(0, 2)}.${key}`, key, typeof hour[key] === 'number' ? 'number' : 'string');
+                                            this.setState(`${studio.id}.${hour.startTime.slice(0, 2)}.${key}`, hour[key], true);
+                                        }
+                                    })
+                            }
+                        });
                 })
                 .catch(error => this.log.error(error));
         }
 
         this.log.debug('end');
-        this.terminate();
     }
 
     /**
@@ -62,7 +61,7 @@ class Mcfit extends utils.Adapter {
         }
     }
 
-    createAdapterState(id: string, name: string, type: ioBroker.CommonType): ioBroker.SetObjectPromise {
+    createAdapterStateIfNotExistsAsync(id: string, name: string, type: ioBroker.CommonType): ioBroker.SetObjectPromise {
         return this.setObjectNotExistsAsync(id, {
             type: 'state',
             common: {
@@ -76,19 +75,9 @@ class Mcfit extends utils.Adapter {
         });
     }
 
-    createAdapterChannel(id: string, name: string): void {
-        this.extendObject(id, {
-            type: 'channel',
-            common: {
-                name: name,
-            },
-            native: {},
-        });
-    }
-
-    createAdapterFolder(id: string, name: string): void {
-        this.extendObject(id, {
-            type: 'folder',
+    extendAdapterObjectAsync(id: string, name: string, type: 'channel' | 'folder'): ioBroker.SetObjectPromise {
+        return this.extendObjectAsync(id, {
+            type: type,
             common: {
                 name: name,
             },

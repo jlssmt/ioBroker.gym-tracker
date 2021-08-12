@@ -45,23 +45,22 @@ class Mcfit extends utils.Adapter {
             axios_1.default.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${studio.id}`)
                 .then(response => response.data.items)
                 .then(result => {
-                this.createAdapterChannel(studio.id.toString(), studio.name);
-                console.log(result);
-                return result;
-            })
-                .then(result => {
-                for (const hour of result) {
-                    this.createAdapterFolder(`${studio.id}.${hour.startTime.slice(0, 2)}`, hour.startTime);
-                    for (const key of Object.keys(hour)) {
-                        this.createAdapterState(`${studio.id}.${hour.startTime.slice(0, 2)}.${key}`, key, typeof hour[key] === 'number' ? 'number' : 'string');
-                        this.setState(`${studio.id}.${hour.startTime.slice(0, 2)}.${key}`, hour[key], true);
+                return this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel')
+                    .then(() => {
+                    for (const hour of result) {
+                        this.extendAdapterObjectAsync(`${studio.id}.${hour.startTime.slice(0, 2)}`, hour.startTime, 'folder')
+                            .then(() => {
+                            for (const key of Object.keys(hour)) {
+                                this.createAdapterStateIfNotExistsAsync(`${studio.id}.${hour.startTime.slice(0, 2)}.${key}`, key, typeof hour[key] === 'number' ? 'number' : 'string');
+                                this.setState(`${studio.id}.${hour.startTime.slice(0, 2)}.${key}`, hour[key], true);
+                            }
+                        });
                     }
-                }
+                });
             })
                 .catch(error => this.log.error(error));
         }
         this.log.debug('end');
-        this.terminate();
     }
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
@@ -79,7 +78,7 @@ class Mcfit extends utils.Adapter {
             callback();
         }
     }
-    createAdapterState(id, name, type) {
+    createAdapterStateIfNotExistsAsync(id, name, type) {
         return this.setObjectNotExistsAsync(id, {
             type: 'state',
             common: {
@@ -92,18 +91,9 @@ class Mcfit extends utils.Adapter {
             native: {},
         });
     }
-    createAdapterChannel(id, name) {
-        this.extendObject(id, {
-            type: 'channel',
-            common: {
-                name: name,
-            },
-            native: {},
-        });
-    }
-    createAdapterFolder(id, name) {
-        this.extendObject(id, {
-            type: 'folder',
+    extendAdapterObjectAsync(id, name, type) {
+        return this.extendObjectAsync(id, {
+            type: type,
             common: {
                 name: name,
             },
