@@ -1,18 +1,13 @@
+import I18n from '@iobroker/adapter-react/i18n';
 import { Grid } from '@material-ui/core';
-import axios from 'axios';
-import React from 'react';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
-import Input from '@material-ui/core/Input';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import I18n from '@iobroker/adapter-react/i18n';
-import { StudioInterface } from '../types/studio.interface';
+import axios from 'axios';
+import React from 'react';
+import { StudioInterface } from '../../../src/types/studio.interface';
 
 const styles = (): Record<string, CreateCSSProperties> => ({
     input: {
@@ -49,9 +44,9 @@ const styles = (): Record<string, CreateCSSProperties> => ({
 
 interface SettingsProps {
     classes: Record<string, string>;
-    native: Record<string, any>;
+    native: ioBroker.AdapterConfig;
 
-    onChange: (attr: string, value: any) => void;
+    onChange: (attr: string, value: StudioInterface[] | string) => void;
 }
 
 interface SettingsState {
@@ -71,10 +66,10 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
                 [...acc, {
                     'id': studio.id,
                     'name': studio.studioName,
-                    'checked': this.props.native.checkedStudios.indexOf(studio.id) !== -1,
+                    'checked': this.props.native.checkedStudios.some(currentStudio => currentStudio.id === studio.id),
                 }], []),
             )
-            .then(data=> data.sort((a, b) => a.name > b.name && 1 || -1))
+            .then(data => data.sort((a, b) => a.name > b.name ? 1 : -1))
             .then(result => this.setState(state => ({ ...state, studios: result })))
             .catch(error => console.log(error));
     }
@@ -92,63 +87,24 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
         );
     }
 
-    renderSelect(
-        title: AdminWord,
-        attr: string,
-        options: { value: string; title: AdminWord }[],
-        style?: React.CSSProperties,
-    ) {
-        return (
-            <FormControl
-                className={`${this.props.classes.input} ${this.props.classes.controlElement}`}
-                style={{
-                    paddingTop: 5,
-                    ...style,
-                }}
-            >
-                <Select
-                    value={this.props.native[attr] || '_'}
-                    onChange={(e) => this.props.onChange(attr, e.target.value === '_' ? '' : e.target.value)}
-                    input={<Input name={attr} id={attr + '-helper'} />}
-                >
-                    {options.map((item) => (
-                        <MenuItem key={'key-' + item.value} value={item.value || '_'}>
-                            {I18n.t(item.title)}
-                        </MenuItem>
-                    ))}
-                </Select>
-                <FormHelperText>{I18n.t(title)}</FormHelperText>
-            </FormControl>
-        );
-    }
-
-    renderCheckbox(title: AdminWord, attr: string, style?: React.CSSProperties) {
-        return (
-            <FormControlLabel
-                key={attr}
-                style={{
-                    paddingTop: 5,
-                    ...style,
-                }}
-                className={this.props.classes.controlElement}
-                control={
-                    <Checkbox
-                        checked={this.props.native[attr]}
-                        onChange={() => this.props.onChange(attr, !this.props.native[attr])}
-                        color="primary"
-                    />
-                }
-                label={I18n.t(title)}
-            />
-        );
-    }
-
-    handleCheckboxChange(id, value) {
+    handleCheckboxChange(studio: StudioInterface, value: boolean) {
+        const previousStudios: StudioInterface[] = this.props.native.checkedStudios;
         if (value) {
-            if (this.props.native.checkedStudios.indexOf(id) !== -1) return;
-            this.props.onChange('checkedStudios', [...this.props.native.checkedStudios, id]);
+            if (previousStudios.some(currentStudio => currentStudio.id === studio.id)) return;
+            this.props.onChange('checkedStudios', '');
+            this.props.onChange(
+                'checkedStudios',
+                [
+                    ...previousStudios,
+                    {
+                        id: studio.id,
+                        name: studio.name,
+                    },
+                ],
+            );
         } else {
-            this.props.onChange('checkedStudios', this.props.native.checkedStudios.filter(currId => currId !== id));
+            this.props.onChange('checkedStudios', '');
+            this.props.onChange('checkedStudios', previousStudios.filter(currentStudio => currentStudio.id !== studio.id));
         }
     }
 
@@ -162,7 +118,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
                                 <Checkbox
                                     color="primary"
                                     defaultChecked={studio.checked}
-                                    onChange={(e) => this.handleCheckboxChange(studio.id, e.target.checked)}
+                                    onChange={(e) => this.handleCheckboxChange(studio, e.target.checked)}
                                 />
                             }
                             label={studio.name}

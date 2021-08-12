@@ -41,12 +41,27 @@ class Mcfit extends utils.Adapter {
      */
     async onReady() {
         this.log.debug('start');
-        for (const studioId of this.config.checkedStudios || []) {
-            axios_1.default.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${studioId}`)
+        for (const studio of this.config.checkedStudios || []) {
+            axios_1.default.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${studio.id}`)
                 .then(response => response.data.items)
+                .then(result => {
+                this.createAdapterChannel(studio.id.toString(), studio.name);
+                console.log(result);
+                return result;
+            })
+                .then(result => {
+                for (const hour of result) {
+                    this.createAdapterFolder(`${studio.id}.${hour.startTime.slice(0, 2)}`, hour.startTime);
+                    for (const key of Object.keys(hour)) {
+                        this.createAdapterState(`${studio.id}.${hour.startTime.slice(0, 2)}.${key}`, key, typeof hour[key] === 'number' ? 'number' : 'string');
+                        this.setState(`${studio.id}.${hour.startTime.slice(0, 2)}.${key}`, hour[key], true);
+                    }
+                }
+            })
                 .catch(error => this.log.error(error));
         }
         this.log.debug('end');
+        this.terminate();
     }
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
@@ -63,6 +78,37 @@ class Mcfit extends utils.Adapter {
         catch (e) {
             callback();
         }
+    }
+    createAdapterState(id, name, type) {
+        return this.setObjectNotExistsAsync(id, {
+            type: 'state',
+            common: {
+                name: name,
+                type: type,
+                role: 'state',
+                read: true,
+                write: false,
+            },
+            native: {},
+        });
+    }
+    createAdapterChannel(id, name) {
+        this.extendObject(id, {
+            type: 'channel',
+            common: {
+                name: name,
+            },
+            native: {},
+        });
+    }
+    createAdapterFolder(id, name) {
+        this.extendObject(id, {
+            type: 'folder',
+            common: {
+                name: name,
+            },
+            native: {},
+        });
     }
 }
 if (require.main !== module) {

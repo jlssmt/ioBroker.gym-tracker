@@ -2,10 +2,12 @@
 
 // Augment the globally declared type ioBroker.AdapterConfig
 
+import { StudioInterface } from '../types/studio.interface';
+
 declare global {
     namespace ioBroker {
         interface AdapterConfig {
-            checkedStudios: number[];
+            checkedStudios: StudioInterface[];
         }
     }
 }
