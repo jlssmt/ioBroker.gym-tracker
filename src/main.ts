@@ -35,6 +35,7 @@ class GymTracker extends utils.Adapter {
         }
 
         this.log.debug('end');
+        this.terminate ? this.terminate('All data handled, adapter stopped until next scheduled moment.') : process.exit();
     }
 
     /**
