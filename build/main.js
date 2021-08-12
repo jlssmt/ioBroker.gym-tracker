@@ -47,15 +47,8 @@ class Mcfit extends utils.Adapter {
                 .then(result => {
                 return this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel')
                     .then(() => {
-                    for (const hour of result) {
-                        this.extendAdapterObjectAsync(`${studio.id}.${hour.startTime.slice(0, 2)}`, hour.startTime, 'folder')
-                            .then(() => {
-                            for (const key of Object.keys(hour)) {
-                                this.createAdapterStateIfNotExistsAsync(`${studio.id}.${hour.startTime.slice(0, 2)}.${key}`, key, typeof hour[key] === 'number' ? 'number' : 'string');
-                                this.setState(`${studio.id}.${hour.startTime.slice(0, 2)}.${key}`, hour[key], true);
-                            }
-                        });
-                    }
+                    this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number')
+                        .then(() => this.setStateAsync(`${studio.id}.utilization`, result.find((hour) => hour.isCurrent).percentage));
                 });
             })
                 .catch(error => this.log.error(error));

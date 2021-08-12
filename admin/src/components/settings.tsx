@@ -54,6 +54,9 @@ interface SettingsState {
 }
 
 class Settings extends React.Component<SettingsProps, SettingsState> {
+    allStudios: StudioInterface[] = [];
+    searchTimeout: NodeJS.Timeout = {} as NodeJS.Timeout;
+
     constructor(props: SettingsProps) {
         super(props);
         this.state = {
@@ -69,22 +72,23 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
                     'checked': this.props.native.checkedStudios.some(currentStudio => currentStudio.id === studio.id),
                 }], []),
             )
+            .then(data => {
+                this.allStudios = data;
+                return data;
+            })
             .then(data => data.sort((a, b) => a.name > b.name ? 1 : -1))
             .then(result => this.setState(state => ({ ...state, studios: result })))
             .catch(error => console.log(error));
     }
 
-    renderInput(title: AdminWord, attr: string, type: string) {
-        return (
-            <TextField
-                label={I18n.t(title)}
-                className={`${this.props.classes.input} ${this.props.classes.controlElement}`}
-                value={this.props.native[attr]}
-                type={type || 'text'}
-                onChange={(e) => this.props.onChange(attr, e.target.value)}
-                margin="normal"
-            />
-        );
+    handleSearch(value: string) {
+        clearTimeout(this.searchTimeout);
+        this.searchTimeout = setTimeout(() => {
+            this.setState(state => ({
+                ...state,
+                studios: this.allStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
+            }));
+        }, 350);
     }
 
     handleCheckboxChange(studio: StudioInterface, value: boolean) {
@@ -110,22 +114,35 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
 
     render() {
         return (
-            <Grid container style={{ height: '80%', overflow: 'scroll' }}>
-                {this.state.studios.map(studio => (
-                    <Grid item lg={2} md={3} sm={6} xs={12} key={`studio-checkbox-${studio.id}`}>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    color="primary"
-                                    defaultChecked={studio.checked}
-                                    onChange={(e) => this.handleCheckboxChange(studio, e.target.checked)}
-                                />
-                            }
-                            label={studio.name}
-                        />
-                    </Grid>
-                ))}
-            </Grid>
+            <div style={{ padding: '20px' }}>
+                <TextField
+                    label={I18n.t('search')}
+                    type="search"
+                    onChange={(e) => this.handleSearch(e.target.value)}
+                    fullWidth
+                />
+                <Grid container style={{ height: '85%', overflow: 'scroll' }}>
+                    {this.state.studios.map(studio => (
+                        <Grid
+                            item
+                            xl={2} lg={3} md={4} sm={6} xs={12}
+                            direction={'column'}
+                            key={`studio-checkbox-${studio.id}`}
+                            style={{ height: 30 }}>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        color="primary"
+                                        defaultChecked={studio.checked}
+                                        onChange={(e) => this.handleCheckboxChange(studio, e.target.checked)}
+                                    />
+                                }
+                                label={studio.name}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
+            </div>
         );
     }
 }
