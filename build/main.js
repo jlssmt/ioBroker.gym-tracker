@@ -27,6 +27,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const utils = __importStar(require("@iobroker/adapter-core"));
 const axios_1 = __importDefault(require("axios"));
+const fitx_json_1 = __importDefault(require("./data/fitx.json"));
 class GymTracker extends utils.Adapter {
     constructor(options = {}) {
         super({
@@ -40,7 +41,6 @@ class GymTracker extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     async onReady() {
-        this.log.debug('start');
         for (const studio of this.config.checkedStudios || []) {
             axios_1.default.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${studio.id}`)
                 .then(response => response.data.items)
@@ -52,8 +52,28 @@ class GymTracker extends utils.Adapter {
                 });
             })
                 .catch(error => this.log.error(error));
+            // TODO add fitness first and fitx api
         }
-        this.log.debug('end');
+        this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+            .then(() => GymTracker.getFitnessFirstStudios())
+            .then((allFitnessFirstStudios) => allFitnessFirstStudios.reduce((acc, studio) => [...acc, {
+                ...studio,
+                name: `FitnessFirst ${studio.name}`,
+            }], []))
+            .then(allFitnessFirstStudios => this.extendObjectAsync('data', { native: { allFitnessFirstStudios } }))
+            .catch(error => this.log.error(error));
+        this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+            .then(() => GymTracker.getRsgStudios())
+            .then(allRsgStudios => this.extendObjectAsync('data', { native: { allRsgStudios } }))
+            .catch(error => this.log.error(error));
+        this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+            .then(() => fitx_json_1.default)
+            .then((allFitnessFirstStudios) => allFitnessFirstStudios.reduce((acc, studio) => [...acc, {
+                ...studio,
+                name: `FitX ${studio.name}`,
+            }], []))
+            .then(allFitxStudios => this.extendObjectAsync('data', { native: { allFitxStudios } }))
+            .catch(error => this.log.error(error));
     }
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
@@ -92,6 +112,22 @@ class GymTracker extends utils.Adapter {
             },
             native: {},
         });
+    }
+    static getRsgStudios() {
+        return axios_1.default.get('https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2')
+            .then(response => response.data)
+            .then(data => data.reduce((acc, studio) => [...acc, {
+                'id': studio.id,
+                'name': studio.studioName,
+            }], []))
+            .then((studios) => studios.sort((a, b) => a.name > b.name ? 1 : -1));
+    }
+    static getFitnessFirstStudios() {
+        return axios_1.default.get(`https://www.fitnessfirst.de/api/v1/node/club_page?include=field_features,field_opening_times&filter[status][value]=1&page[limit]=40&sort=title`)
+            .then(response => response.data.data.reduce((acc, studio) => [...acc, {
+                id: studio.attributes.field_easy_solution_club_id,
+                name: studio.attributes.title,
+            }], []));
     }
 }
 if (require.main !== module) {

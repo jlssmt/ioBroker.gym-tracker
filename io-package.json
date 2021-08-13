@@ -49,7 +49,9 @@
       "high5",
       "rsg group",
       "fitness",
-      "gym"
+      "gym",
+      "fitx",
+      "fitnessfirst"
     ],
     "license": "MIT",
     "platform": "Javascript/Node.js",

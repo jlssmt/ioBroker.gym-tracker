@@ -1,3 +1,4 @@
+import Connection from '@iobroker/adapter-react/Connection';
 import I18n from '@iobroker/adapter-react/i18n';
 import { Grid } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -5,7 +6,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
 import React from 'react';
 import { StudioInterface } from '../../../src/types/studio.interface';
 
@@ -45,53 +45,74 @@ const styles = (): Record<string, CreateCSSProperties> => ({
 interface SettingsProps {
     classes: Record<string, string>;
     native: ioBroker.AdapterConfig;
+    context: {
+        socket: Connection;
+        instance: number;
+    }
 
     onChange: (attr: string, value: StudioInterface[] | string) => void;
 }
 
 interface SettingsState {
-    studios: StudioInterface[];
+    rsgStudios: StudioInterface[];
+    fitnessFirstStudios: StudioInterface[];
+    fitxStudios: StudioInterface[];
 }
 
 class Settings extends React.Component<SettingsProps, SettingsState> {
-    allStudios: StudioInterface[] = [];
-    searchTimeout: NodeJS.Timeout = {} as NodeJS.Timeout;
+    private searchTimeout: NodeJS.Timeout = {} as NodeJS.Timeout;
+    private allRsgStudios: StudioInterface[] = [];
+    private allFitnessFirstStudios: StudioInterface[] = [];
+    private allFitxStudios: StudioInterface[] = [];
 
     constructor(props: SettingsProps) {
         super(props);
         this.state = {
-            studios: [],
+            rsgStudios: [],
+            fitnessFirstStudios: [],
+            fitxStudios: [],
         };
 
-        axios.get('https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2')
-            .then(response => response.data)
-            .then(data => data.reduce((acc: StudioInterface[], studio: any) =>
-                [...acc, {
-                    'id': studio.id,
-                    'name': studio.studioName,
-                    'checked': this.props.native.checkedStudios.some(currentStudio => currentStudio.id === studio.id),
-                }], []),
-            )
-            .then(data => {
-                this.allStudios = data;
-                return data;
-            })
-            .then(data => data.sort((a, b) => a.name > b.name ? 1 : -1))
-            .then(result => this.setState(state => ({ ...state, studios: result })))
-            .catch(error => console.log(error));
+        this.fetchData();
     }
 
-    handleSearch(value: string) {
+    private fetchData() {
+        this.props.context.socket.getObject(`gym-tracker.${this.props.context.instance}.data`)
+            .then(data => {
+                if (!data) throw new Error('Backend provided no data. Please restart adapter!');
+                for (const company in data.native) {
+                    data.native[company] = data.native[company].reduce((acc: StudioInterface[], studio: StudioInterface) => [...acc, {
+                        ...studio,
+                        checked: this.props.native.checkedStudios.some(checkedStudio => checkedStudio.id === studio.id),
+                    }], [])
+                }
+                this.allRsgStudios = data.native.allRsgStudios;
+                this.allFitnessFirstStudios = data.native.allFitnessFirstStudios;
+                this.allFitxStudios = data.native.allFitxStudios;
+                this.setState(state => ({
+                    ...state,
+                    rsgStudios: this.allRsgStudios,
+                    fitnessFirstStudios: this.allFitnessFirstStudios,
+                    fitxStudios: this.allFitxStudios,
+                }));
+            })
+            .catch(error => console.log(error));
+
+    }
+
+    private handleSearch(value: string) {
         clearTimeout(this.searchTimeout);
         this.searchTimeout = setTimeout(() => {
             this.setState(state => ({
                 ...state,
-                studios: this.allStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
+                rsgStudios: this.allRsgStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
+                fitnessFirstStudios: this.allFitnessFirstStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
+                fitxStudios: this.allFitxStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
             }));
-        }, 350);
+        }, 300);
     }
 
-    handleCheckboxChange(studio: StudioInterface, value: boolean) {
+    private handleCheckboxChange(studio: StudioInterface, value: boolean) {
         const previousStudios: StudioInterface[] = this.props.native.checkedStudios;
         if (value) {
             if (previousStudios.some(currentStudio => currentStudio.id === studio.id)) return;
@@ -112,35 +133,39 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
         }
     }
 
+    private renderStudioGridItem(studio: StudioInterface) {
+        return (
+            <Grid
+                item
+                xl={2} lg={3} md={4} sm={6} xs={12}
+                key={`studio-checkbox-${studio.id}`}>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            color="primary"
+                            defaultChecked={studio.checked}
+                            onChange={(e) => this.handleCheckboxChange(studio, e.target.checked)}
+                        />
+                    }
+                    label={studio.name}
+                />
+            </Grid>
+        );
+    }
+
     render() {
         return (
-            <div style={{ padding: '20px' }}>
+            <div style={{ padding: 20, height: 'calc(100% - 50px)' }}>
                 <TextField
-                    label={I18n.t('search')}
+                    label={I18n.t('searchStudio')}
                     type="search"
                     onChange={(e) => this.handleSearch(e.target.value)}
                     fullWidth
                 />
-                <Grid container style={{ height: '85%', overflow: 'scroll' }}>
-                    {this.state.studios.map(studio => (
-                        <Grid
-                            item
-                            xl={2} lg={3} md={4} sm={6} xs={12}
-                            direction={'column'}
-                            key={`studio-checkbox-${studio.id}`}
-                            style={{ height: 30 }}>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        color="primary"
-                                        defaultChecked={studio.checked}
-                                        onChange={(e) => this.handleCheckboxChange(studio, e.target.checked)}
-                                    />
-                                }
-                                label={studio.name}
-                            />
-                        </Grid>
-                    ))}
+                <Grid container style={{ height: 'calc(100% - 28px)', overflow: 'scroll' }}>
+                    {this.state.rsgStudios.map(studio => this.renderStudioGridItem(studio))}
+                    {this.state.fitnessFirstStudios.map(studio => this.renderStudioGridItem(studio))}
+                    {this.state.fitxStudios.map(studio => this.renderStudioGridItem(studio))}
                 </Grid>
             </div>
         );

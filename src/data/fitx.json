@@ -1,0 +1,386 @@
+[
+  {
+    "id": 38,
+    "name": "Aachen-Europaplatz"
+  },
+  {
+    "id": 106,
+    "name": "Arnsberg"
+  },
+  {
+    "id": 98,
+    "name": "Augsburg-Lechhausen"
+  },
+  {
+    "id": 37,
+    "name": "Berlin-Alexanderplatz"
+  },
+  {
+    "id": 100,
+    "name": "Berlin-Biesdorf"
+  },
+  {
+    "id": 82,
+    "name": "Berlin-East Side Mall"
+  },
+  {
+    "id": 61,
+    "name": "Berlin-Hellersdorf"
+  },
+  {
+    "id": 89,
+    "name": "Berlin-Landsberger Allee"
+  },
+  {
+    "id": 91,
+    "name": "Berlin-Moabit"
+  },
+  {
+    "id": 57,
+    "name": "Berlin-Schöneberg"
+  },
+  {
+    "id": 48,
+    "name": "Berlin-Südkreuz"
+  },
+  {
+    "id": 56,
+    "name": "Berlin-Tempelhof"
+  },
+  {
+    "id": 29,
+    "name": "Berlin-Waidmannslust"
+  },
+  {
+    "id": 24,
+    "name": "Berlin-Wilmersdorf"
+  },
+  {
+    "id": 102,
+    "name": "Bielefeld-Mitte"
+  },
+  {
+    "id": 26,
+    "name": "Bielefeld-Sieker"
+  },
+  {
+    "id": 66,
+    "name": "Bochum-Harpen"
+  },
+  {
+    "id": 34,
+    "name": "Bochum-Innenstadt"
+  },
+  {
+    "id": 32,
+    "name": "Bochum-Riemke"
+  },
+  {
+    "id": 17,
+    "name": "Bochum-Wattenscheid"
+  },
+  {
+    "id": 94,
+    "name": "Bonn-Duisdorf"
+  },
+  {
+    "id": 78,
+    "name": "Bottrop-Stadtmitte"
+  },
+  {
+    "id": 51,
+    "name": "Bremen-Mitte"
+  },
+  {
+    "id": 54,
+    "name": "Bremen-Oslebshausen"
+  },
+  {
+    "id": 74,
+    "name": "Bremen-Walle"
+  },
+  {
+    "id": 75,
+    "name": "Bremerhaven-Geestemünde"
+  },
+  {
+    "id": 69,
+    "name": "Chemnitz-Kaßberg"
+  },
+  {
+    "id": 40,
+    "name": "Dortmund-Kley"
+  },
+  {
+    "id": 13,
+    "name": "Dortmund-Nordstadt"
+  },
+  {
+    "id": 25,
+    "name": "Dortmund-Phoenix See"
+  },
+  {
+    "id": 101,
+    "name": "Dresden-Freiberger Straße"
+  },
+  {
+    "id": 84,
+    "name": "Duisburg-Hamborn"
+  },
+  {
+    "id": 60,
+    "name": "Duisburg-Rheinhausen"
+  },
+  {
+    "id": 39,
+    "name": "Düren-Birkesdorf"
+  },
+  {
+    "id": 15,
+    "name": "Düsseldorf-Derendorf"
+  },
+  {
+    "id": 16,
+    "name": "Düsseldorf-Flingern"
+  },
+  {
+    "id": 47,
+    "name": "Düsseldorf-Holthausen"
+  },
+  {
+    "id": 33,
+    "name": "Düsseldorf-Lörick"
+  },
+  {
+    "id": 116,
+    "name": "Erfurt-Daberstedt"
+  },
+  {
+    "id": 19,
+    "name": "Essen-Bergerhausen"
+  },
+  {
+    "id": 70,
+    "name": "Essen-Limbecker Platz"
+  },
+  {
+    "id": 11,
+    "name": "Essen-Nordviertel"
+  },
+  {
+    "id": 76,
+    "name": "Fürth-Hardhöhe"
+  },
+  {
+    "id": 111,
+    "name": "Gelsenkirchen-Erle"
+  },
+  {
+    "id": 27,
+    "name": "Gelsenkirchen-Heßler"
+  },
+  {
+    "id": 105,
+    "name": "Gelsenkirchen-Mitte"
+  },
+  {
+    "id": 90,
+    "name": "Gießen-Innenstadt"
+  },
+  {
+    "id": 88,
+    "name": "Gladbeck-Mitte"
+  },
+  {
+    "id": 118,
+    "name": "Grevenbroich"
+  },
+  {
+    "id": 71,
+    "name": "Gütersloh-Innenstadt"
+  },
+  {
+    "id": 62,
+    "name": "Hagen-Mitte"
+  },
+  {
+    "id": 46,
+    "name": "Hamburg-Airport"
+  },
+  {
+    "id": 80,
+    "name": "Hamburg-Bahrenfeld"
+  },
+  {
+    "id": 45,
+    "name": "Hamburg-Steilshoop"
+  },
+  {
+    "id": 14,
+    "name": "Hamm-Mitte"
+  },
+  {
+    "id": 22,
+    "name": "Hannover-Vahrenheide"
+  },
+  {
+    "id": 123,
+    "name": "Hilden"
+  },
+  {
+    "id": 42,
+    "name": "Iserlohn-Seilersee"
+  },
+  {
+    "id": 81,
+    "name": "Jena-Burgau"
+  },
+  {
+    "id": 31,
+    "name": "Kiel Gaarden-Süd"
+  },
+  {
+    "id": 124,
+    "name": "Koblenz-Lützel"
+  },
+  {
+    "id": 112,
+    "name": "Krefeld-Inrath"
+  },
+  {
+    "id": 30,
+    "name": "Krefeld-Oppum"
+  },
+  {
+    "id": 41,
+    "name": "Leipzig Mockau-Süd"
+  },
+  {
+    "id": 103,
+    "name": "Leipzig-Neulindenau"
+  },
+  {
+    "id": 43,
+    "name": "Lübeck-St. Lorenz Nord"
+  },
+  {
+    "id": 44,
+    "name": "Ludwigshafen-Nord"
+  },
+  {
+    "id": 49,
+    "name": "Magdeburg-Sudenburg"
+  },
+  {
+    "id": 99,
+    "name": "Mainz-Hechtsheim"
+  },
+  {
+    "id": 97,
+    "name": "Minden-Innenstadt"
+  },
+  {
+    "id": 67,
+    "name": "Mönchengladbach-Rheydt"
+  },
+  {
+    "id": 21,
+    "name": "Mönchengladbach-Waldhausen"
+  },
+  {
+    "id": 77,
+    "name": "Mülheim-Stadtmitte"
+  },
+  {
+    "id": 108,
+    "name": "München-Lenbachplatz"
+  },
+  {
+    "id": 65,
+    "name": "München-Neuperlach"
+  },
+  {
+    "id": 35,
+    "name": "München Schwabing-Freimann"
+  },
+  {
+    "id": 53,
+    "name": "München Sendling-Westpark"
+  },
+  {
+    "id": 12,
+    "name": "Münster-Berg Fidel"
+  },
+  {
+    "id": 64,
+    "name": "Münster-Kinderhaus"
+  },
+  {
+    "id": 110,
+    "name": "Neuss-Innenstadt"
+  },
+  {
+    "id": 55,
+    "name": "Nürnberg-Zabo"
+  },
+  {
+    "id": 20,
+    "name": "Oberhausen-Marienviertel"
+  },
+  {
+    "id": 18,
+    "name": "Osnabrück-Fledder"
+  },
+  {
+    "id": 50,
+    "name": "Ratingen-West"
+  },
+  {
+    "id": 104,
+    "name": "Remscheid-Süd"
+  },
+  {
+    "id": 58,
+    "name": "Rostock-Südstadt"
+  },
+  {
+    "id": 87,
+    "name": "Saarbrücken-St. Johann"
+  },
+  {
+    "id": 28,
+    "name": "Siegen-Mitte"
+  },
+  {
+    "id": 96,
+    "name": "Troisdorf-Mitte"
+  },
+  {
+    "id": 117,
+    "name": "Unna"
+  },
+  {
+    "id": 121,
+    "name": "Viersen"
+  },
+  {
+    "id": 107,
+    "name": "Wetzlar"
+  },
+  {
+    "id": 86,
+    "name": "Witten-Mitte"
+  },
+  {
+    "id": 52,
+    "name": "Worms-Innenstadt Süd"
+  },
+  {
+    "id": 36,
+    "name": "Wuppertal-Barmen"
+  },
+  {
+    "id": 23,
+    "name": "Wuppertal-Langerfeld"
+  }
+]

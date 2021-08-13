@@ -42,7 +42,10 @@ class App extends GenericApp {
 
         return (
             <div className="App">
-                <Settings native={this.state.native} onChange={(attr, value) => this.updateNativeValue(attr, value)} />
+                <Settings
+                    native={this.state.native}
+                    context={{ socket: this.socket, instance: this.instance }}
+                    onChange={(attr, value) => this.updateNativeValue(attr, value)} />
                 {this.renderError()}
                 {this.renderToast()}
                 {this.renderSaveCloseButtons()}

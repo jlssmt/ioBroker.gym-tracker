@@ -3,6 +3,8 @@
  */
 import * as utils from '@iobroker/adapter-core';
 import axios from 'axios';
+import { StudioInterface } from './types/studio.interface';
+import fitx from './data/fitx.json';
 
 class GymTracker extends utils.Adapter {
 
@@ -19,7 +21,6 @@ class GymTracker extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     private async onReady(): Promise<void> {
-        this.log.debug('start');
 
         for (const studio of this.config.checkedStudios || []) {
             axios.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${studio.id}`)
@@ -32,10 +33,31 @@ class GymTracker extends utils.Adapter {
                         });
                 })
                 .catch(error => this.log.error(error));
+            // TODO add fitness first and fitx api
         }
 
-        this.log.debug('end');
-        this.terminate ? this.terminate('All data handled, adapter stopped until next scheduled moment.') : process.exit();
+        this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+            .then(() => GymTracker.getFitnessFirstStudios())
+            .then((allFitnessFirstStudios) => allFitnessFirstStudios.reduce((acc: StudioInterface[], studio) => [...acc, {
+                ...studio,
+                name: `FitnessFirst ${studio.name}`,
+            }], []))
+            .then(allFitnessFirstStudios => this.extendObjectAsync('data', { native: { allFitnessFirstStudios } }))
+            .catch(error => this.log.error(error));
+
+        this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+            .then(() => GymTracker.getRsgStudios())
+            .then(allRsgStudios => this.extendObjectAsync('data', { native: { allRsgStudios } }))
+            .catch(error => this.log.error(error));
+
+        this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+            .then(() => fitx)
+            .then((allFitnessFirstStudios) => allFitnessFirstStudios.reduce((acc: StudioInterface[], studio) => [...acc, {
+                ...studio,
+                name: `FitX ${studio.name}`,
+            }], []))
+            .then(allFitxStudios => this.extendObjectAsync('data', { native: { allFitxStudios } }))
+            .catch(error => this.log.error(error));
     }
 
     /**
@@ -55,7 +77,7 @@ class GymTracker extends utils.Adapter {
         }
     }
 
-    createAdapterStateIfNotExistsAsync(id: string, name: string, type: ioBroker.CommonType): ioBroker.SetObjectPromise {
+    private createAdapterStateIfNotExistsAsync(id: string, name: string, type: ioBroker.CommonType): ioBroker.SetObjectPromise {
         return this.setObjectNotExistsAsync(id, {
             type: 'state',
             common: {
@@ -69,7 +91,7 @@ class GymTracker extends utils.Adapter {
         });
     }
 
-    extendAdapterObjectAsync(id: string, name: string, type: 'channel' | 'folder'): ioBroker.SetObjectPromise {
+    private extendAdapterObjectAsync(id: string, name: string, type: 'channel' | 'folder'): ioBroker.SetObjectPromise {
         return this.extendObjectAsync(id, {
             type: type,
             common: {
@@ -77,6 +99,24 @@ class GymTracker extends utils.Adapter {
             },
             native: {},
         });
+    }
+
+    private static getRsgStudios(): Promise<StudioInterface[]> {
+        return axios.get('https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2')
+            .then(response => response.data)
+            .then(data => data.reduce((acc: StudioInterface[], studio: any) => [...acc, {
+                'id': studio.id,
+                'name': studio.studioName,
+            }], []))
+            .then((studios: StudioInterface[]) => studios.sort((a, b) => a.name > b.name ? 1 : -1));
+    }
+
+    private static getFitnessFirstStudios(): Promise<StudioInterface[]> {
+        return axios.get(`https://www.fitnessfirst.de/api/v1/node/club_page?include=field_features,field_opening_times&filter[status][value]=1&page[limit]=40&sort=title`)
+            .then(response => response.data.data.reduce((acc: StudioInterface[], studio: any) => [...acc, {
+                id: studio.attributes.field_easy_solution_club_id,
+                name: studio.attributes.title,
+            }], []));
     }
 }
 
