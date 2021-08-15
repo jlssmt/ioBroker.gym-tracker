@@ -99,7 +99,10 @@ Please refer to the [`dev-server` documentation](https://github.com/ioBroker/dev
     ### **WORK IN PROGRESS**
 -->
 
-### **WORK IN PROGRESS**
+### 0.1.0 (2021-08-15)
+* (jlssmt) nuffin
+
+### v0.1.0 (2021-08-15)
 * (jlssmt) initial release
 
 ## License

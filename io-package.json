@@ -1,83 +1,95 @@
 {
-  "common": {
-    "name": "gym-tracker",
-    "version": "0.0.1",
-    "news": {
-      "0.0.1": {
-        "en": "initial release",
-        "de": "Erstveröffentlichung",
-        "ru": "Начальная версия",
-        "pt": "lançamento inicial",
-        "nl": "Eerste uitgave",
-        "fr": "Première version",
-        "it": "Versione iniziale",
-        "es": "Versión inicial",
-        "pl": "Pierwsze wydanie",
-        "zh-cn": "首次出版"
-      }
+    "common": {
+        "name": "gym-tracker",
+        "version": "0.1.0",
+        "news": {
+            "0.1.0": {
+                "en": "nuffin",
+                "de": "nuffin",
+                "ru": "нюхать",
+                "pt": "nuffin",
+                "nl": "nuffin",
+                "fr": "nuffin",
+                "it": "sfigato",
+                "es": "nuffin",
+                "pl": "wariatka",
+                "zh-cn": "纳芬"
+            },
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "zh-cn": "首次出版"
+            }
+        },
+        "titleLang": {
+            "en": "Gym tracker",
+            "de": "Gym tracker",
+            "ru": "Gym tracker",
+            "pt": "Gym tracker",
+            "nl": "Gym tracker",
+            "fr": "Gym tracker",
+            "it": "Gym tracker",
+            "es": "Gym tracker",
+            "pl": "Gym tracker",
+            "zh-cn": "健身房追踪器"
+        },
+        "desc": {
+            "en": "Gym tracker",
+            "de": "Gym tracker",
+            "ru": "Gym tracker",
+            "pt": "Gym tracker",
+            "nl": "Gym tracker",
+            "fr": "Gym tracker",
+            "it": "Gym tracker",
+            "es": "Gym tracker",
+            "pl": "Gym tracker",
+            "zh-cn": "健身房追踪器"
+        },
+        "authors": [
+            "jlssmt <i-hate-spammers-emails-wont-be-read@gmail.com>"
+        ],
+        "keywords": [
+            "mcfit",
+            "johnreed",
+            "high5",
+            "rsg group",
+            "fitness",
+            "gym",
+            "fitx",
+            "fitnessfirst"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "build/main.js",
+        "icon": "gym-tracker.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/jlssmt/ioBroker.gym-tracker/master/admin/gym-tracker.png",
+        "readme": "https://github.com/jlssmt/ioBroker.gym-tracker/blob/master/README.md",
+        "loglevel": "info",
+        "mode": "schedule",
+        "schedule": "*/15 * * * *",
+        "allowInit": true,
+        "type": "health",
+        "compact": true,
+        "connectionType": "cloud",
+        "dataSource": "poll",
+        "materialize": true,
+        "dependencies": [
+            {
+                "js-controller": ">=2.0.0"
+            }
+        ]
     },
-    "titleLang": {
-      "en": "Gym tracker",
-      "de": "Gym tracker",
-      "ru": "Gym tracker",
-      "pt": "Gym tracker",
-      "nl": "Gym tracker",
-      "fr": "Gym tracker",
-      "it": "Gym tracker",
-      "es": "Gym tracker",
-      "pl": "Gym tracker",
-      "zh-cn": "健身房追踪器"
+    "native": {
+        "checkedStudios": []
     },
-    "desc": {
-      "en": "Gym tracker",
-      "de": "Gym tracker",
-      "ru": "Gym tracker",
-      "pt": "Gym tracker",
-      "nl": "Gym tracker",
-      "fr": "Gym tracker",
-      "it": "Gym tracker",
-      "es": "Gym tracker",
-      "pl": "Gym tracker",
-      "zh-cn": "健身房追踪器"
-    },
-    "authors": [
-      "jlssmt <i-hate-spammers-emails-wont-be-read@gmail.com>"
-    ],
-    "keywords": [
-      "mcfit",
-      "johnreed",
-      "high5",
-      "rsg group",
-      "fitness",
-      "gym",
-      "fitx",
-      "fitnessfirst"
-    ],
-    "license": "MIT",
-    "platform": "Javascript/Node.js",
-    "main": "build/main.js",
-    "icon": "gym-tracker.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/jlssmt/ioBroker.gym-tracker/master/admin/gym-tracker.png",
-    "readme": "https://github.com/jlssmt/ioBroker.gym-tracker/blob/master/README.md",
-    "loglevel": "info",
-    "mode": "schedule",
-    "schedule": "*/15 * * * *",
-    "allowInit": true,
-    "type": "health",
-    "compact": true,
-    "connectionType": "cloud",
-    "dataSource": "poll",
-    "materialize": true,
-    "dependencies": [
-      {
-        "js-controller": ">=2.0.0"
-      }
-    ]
-  },
-  "native": {
-    "checkedStudios": []
-  },
-  "objects": [],
-  "instanceObjects": []
+    "objects": [],
+    "instanceObjects": []
 }
