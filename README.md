@@ -99,7 +99,7 @@ Please refer to the [`dev-server` documentation](https://github.com/ioBroker/dev
     ### **WORK IN PROGRESS**
 -->
 
-### 0.1.0 (2021-08-15)
+### 0.1.1 (2021-08-15)
 * (jlssmt) initial release
 
 ## License
