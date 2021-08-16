@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "gym-tracker",
-        "version": "0.1.5-1",
+        "version": "0.1.5-2",
         "news": {
+            "0.1.5-2": {
+                "en": "change state folder structure from studio id to name",
+                "de": "Ändern Sie die Statusordnerstruktur von Studio-ID in Name",
+                "ru": "изменить структуру папки состояния с идентификатора студии на имя",
+                "pt": "mudar a estrutura da pasta de estado de id do estúdio para o nome",
+                "nl": "verander de mapstructuur van de staat van studio-ID naar naam",
+                "fr": "changer la structure du dossier d'état de l'identifiant du studio au nom",
+                "it": "cambia la struttura della cartella di stato da ID studio a nome",
+                "es": "cambiar la estructura de la carpeta de estado de la identificación del estudio al nombre",
+                "pl": "zmienić strukturę folderów stanu z identyfikatora studia na nazwę",
+                "zh-cn": "将状态文件夹结构从工作室 ID 更改为名称"
+            },
             "0.1.5-1": {
                 "en": "added logo",
                 "de": "Logo hinzugefügt",
