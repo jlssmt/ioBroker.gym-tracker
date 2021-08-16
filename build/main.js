@@ -41,49 +41,50 @@ class GymTracker extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     async onReady() {
+        this.log.debug(JSON.stringify(this.config.checkedStudios));
         for (const studio of this.config.checkedStudios || []) {
             switch (true) {
                 case studio.name.includes('FitnessFirst'):
-                    axios_1.default.get(`https://www.fitnessfirst.de/club/api/checkins/${studio.id}`)
+                    await axios_1.default.get(`https://www.fitnessfirst.de/club/api/checkins/${studio.id}`)
                         .then(response => response.data.data)
                         .then(data => Math.round(data.check_ins * 100 / data.allowed_people))
                         .then(data => {
                         return this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel')
-                            .then(() => {
-                            this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number')
+                            .then(async () => {
+                            await this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number')
                                 .then(() => this.setStateAsync(`${studio.id}.utilization`, data, true));
                         });
                     })
                         .catch(error => this.log.error(error));
                     break;
                 case studio.name.includes('FitX'):
-                    axios_1.default.get(`https://www.fitx.de/fitnessstudio/${studio.id}/workload`)
+                    await axios_1.default.get(`https://www.fitx.de/fitnessstudio/${studio.id}/workload`)
                         .then(response => response.data)
                         .then(data => JSON.parse(data).workload.percentage)
                         .then(data => {
                         return this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel')
-                            .then(() => {
-                            this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number')
+                            .then(async () => {
+                            await this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number')
                                 .then(() => this.setStateAsync(`${studio.id}.utilization`, data, true));
                         });
                     })
                         .catch(error => this.log.error(error));
                     break;
                 default:
-                    axios_1.default.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${studio.id}`)
+                    await axios_1.default.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${studio.id}`)
                         .then(response => response.data.items)
                         .then(data => data.find((hour) => hour.isCurrent).percentage)
                         .then(result => {
                         return this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel')
-                            .then(() => {
-                            this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number')
+                            .then(async () => {
+                            await this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number')
                                 .then(() => this.setStateAsync(`${studio.id}.utilization`, result, true));
                         });
                     })
                         .catch(error => this.log.error(error));
             }
         }
-        this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+        await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
             .then(() => GymTracker.getFitnessFirstStudios())
             .then((allFitnessFirstStudios) => allFitnessFirstStudios.reduce((acc, studio) => [...acc, {
                 ...studio,
@@ -91,11 +92,11 @@ class GymTracker extends utils.Adapter {
             }], []))
             .then(allFitnessFirstStudios => this.extendObjectAsync('data', { native: { allFitnessFirstStudios } }))
             .catch(error => this.log.error(error));
-        this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+        await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
             .then(() => GymTracker.getRsgStudios())
             .then(allRsgStudios => this.extendObjectAsync('data', { native: { allRsgStudios } }))
             .catch(error => this.log.error(error));
-        this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+        await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
             .then(() => fitx_json_1.default)
             .then((allFitnessFirstStudios) => allFitnessFirstStudios.reduce((acc, studio) => [...acc, {
                 ...studio,
@@ -103,6 +104,7 @@ class GymTracker extends utils.Adapter {
             }], []))
             .then(allFitxStudios => this.extendObjectAsync('data', { native: { allFitxStudios } }))
             .catch(error => this.log.error(error));
+        this.terminate ? this.terminate('All data handled, adapter stopped until next scheduled moment') : process.exit();
     }
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
