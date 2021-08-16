@@ -25,7 +25,6 @@ class GymTracker extends utils.Adapter {
         this.log.debug(`checked studios: ${JSON.stringify(this.config.checkedStudios)}`);
 
         const utilizationDataPromise: Promise<any>[] = [];
-        const studioDataPromise: Promise<any>[] = [];
 
         for (const studio of this.config.checkedStudios || []) {
             switch (true) {
