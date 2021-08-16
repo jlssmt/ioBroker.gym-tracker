@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "gym-tracker",
-        "version": "0.1.5-0",
+        "version": "0.1.5-1",
         "news": {
+            "0.1.5-1": {
+                "en": "added logo",
+                "de": "Logo hinzugefügt",
+                "ru": "добавлен логотип",
+                "pt": "logotipo adicionado",
+                "nl": "toegevoegd logo",
+                "fr": "logo ajouté",
+                "it": "logo aggiunto",
+                "es": "logo añadido",
+                "pl": "dodane logo",
+                "zh-cn": "添加徽标"
+            },
             "0.1.5-0": {
                 "en": "added translations",
                 "de": "Übersetzungen hinzugefügt",
