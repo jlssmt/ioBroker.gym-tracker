@@ -41,70 +41,69 @@ class GymTracker extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     async onReady() {
-        this.log.debug(JSON.stringify(this.config.checkedStudios));
+        this.log.debug(`checked studios: ${JSON.stringify(this.config.checkedStudios)}`);
+        const utilizationDataPromise = [];
+        const studioDataPromise = [];
         for (const studio of this.config.checkedStudios || []) {
             switch (true) {
                 case studio.name.includes('FitnessFirst'):
-                    await axios_1.default.get(`https://www.fitnessfirst.de/club/api/checkins/${studio.id}`)
+                    utilizationDataPromise.push(axios_1.default.get(`https://www.fitnessfirst.de/club/api/checkins/${studio.id}`)
                         .then(response => response.data.data)
                         .then(data => Math.round(data.check_ins * 100 / data.allowed_people))
-                        .then(data => {
-                        return this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel')
-                            .then(async () => {
-                            await this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number')
-                                .then(() => this.setStateAsync(`${studio.id}.utilization`, data, true));
-                        });
+                        .then(async (result) => {
+                        await this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel');
+                        await this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number');
+                        return result;
                     })
-                        .catch(error => this.log.error(error));
+                        .then(result => this.setStateAsync(`${studio.id}.utilization`, result, true)));
                     break;
                 case studio.name.includes('FitX'):
-                    await axios_1.default.get(`https://www.fitx.de/fitnessstudio/${studio.id}/workload`)
+                    utilizationDataPromise.push(axios_1.default.get(`https://www.fitx.de/fitnessstudio/${studio.id}/workload`)
                         .then(response => response.data)
                         .then(data => JSON.parse(data).workload.percentage)
-                        .then(data => {
-                        return this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel')
-                            .then(async () => {
-                            await this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number')
-                                .then(() => this.setStateAsync(`${studio.id}.utilization`, data, true));
-                        });
+                        .then(async (result) => {
+                        await this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel');
+                        await this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number');
+                        return result;
                     })
-                        .catch(error => this.log.error(error));
+                        .then(result => this.setStateAsync(`${studio.id}.utilization`, result, true)));
                     break;
                 default:
-                    await axios_1.default.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${studio.id}`)
+                    utilizationDataPromise.push(axios_1.default.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${studio.id}`)
                         .then(response => response.data.items)
                         .then(data => data.find((hour) => hour.isCurrent).percentage)
-                        .then(result => {
-                        return this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel')
-                            .then(async () => {
-                            await this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number')
-                                .then(() => this.setStateAsync(`${studio.id}.utilization`, result, true));
-                        });
+                        .then(async (result) => {
+                        await this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel');
+                        await this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number');
+                        return result;
                     })
-                        .catch(error => this.log.error(error));
+                        .then(result => this.setStateAsync(`${studio.id}.utilization`, result, true)));
             }
         }
-        await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+        studioDataPromise.push(this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
             .then(() => GymTracker.getFitnessFirstStudios())
             .then((allFitnessFirstStudios) => allFitnessFirstStudios.reduce((acc, studio) => [...acc, {
                 ...studio,
                 name: `FitnessFirst ${studio.name}`,
             }], []))
             .then(allFitnessFirstStudios => this.extendObjectAsync('data', { native: { allFitnessFirstStudios } }))
-            .catch(error => this.log.error(error));
-        await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+            .catch(error => this.log.error(error)));
+        studioDataPromise.push(this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
             .then(() => GymTracker.getRsgStudios())
             .then(allRsgStudios => this.extendObjectAsync('data', { native: { allRsgStudios } }))
-            .catch(error => this.log.error(error));
-        await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+            .catch(error => this.log.error(error)));
+        studioDataPromise.push(this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
             .then(() => fitx_json_1.default)
             .then((allFitnessFirstStudios) => allFitnessFirstStudios.reduce((acc, studio) => [...acc, {
                 ...studio,
                 name: `FitX ${studio.name}`,
             }], []))
             .then(allFitxStudios => this.extendObjectAsync('data', { native: { allFitxStudios } }))
+            .catch(error => this.log.error(error)));
+        await Promise.all(utilizationDataPromise)
+            .then(() => studioDataPromise)
             .catch(error => this.log.error(error));
-        this.terminate ? this.terminate('All data handled, adapter stopped until next scheduled moment') : process.exit();
+        this.terminate ? this.terminate('All data handled, adapter stopped until next scheduled moment.') : process.exit();
     }
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
