@@ -22,8 +22,11 @@ This way the workload can be integrated into iobroker VIS.
     ### **WORK IN PROGRESS**
 -->
 
-### 0.1.2 (2021-08-16)
+### **WORK IN PROGRESS**
 * (jlssmt) bug fixing
+
+### 0.1.2 (2021-08-16)
+* (jlssmt) production bug fixing
 
 ### 0.1.1 (2021-08-15)
 * (jlssmt) initial release
