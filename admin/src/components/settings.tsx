@@ -65,7 +65,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
         const previousStudios: StudioInterface[] = this.props.native.checkedStudios;
         if (value) {
             if (previousStudios.some(currentStudio => currentStudio.id === studio.id)) return;
-            this.props.onChange('checkedStudios', '');
+            this.props.onChange('checkedStudios', ''); // this is a workaround for deep change detection of onChange function
             this.props.onChange(
                 'checkedStudios',
                 [
@@ -77,7 +77,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
                 ],
             );
         } else {
-            this.props.onChange('checkedStudios', '');
+            this.props.onChange('checkedStudios', ''); // this is a workaround for deep change detection of onChange function
             this.props.onChange('checkedStudios', previousStudios.filter(currentStudio => currentStudio.id !== studio.id));
         }
     }
