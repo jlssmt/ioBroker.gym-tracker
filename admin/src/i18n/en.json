@@ -1,5 +1,5 @@
 {
-    "gym-tracker adapter settings": "Adapter settings for gym-tracker",
-    "searchStudio": "Search studio",
-    "noDataProvided": "No data loaded - Please restart adapter manually or report the issue to the developer if problem still exists."
+  "gym-tracker adapter settings": "Adapter settings for gym-tracker",
+  "searchStudio": "Search studio",
+  "noDataProvided": "No data loaded - Please restart adapter manually or report the issue to the developer if problem still exists."
 }

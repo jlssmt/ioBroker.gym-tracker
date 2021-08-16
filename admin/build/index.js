@@ -107109,16 +107109,19 @@ var Settings = function (_super) {
     var previousStudios = this.props.native.checkedStudios;
 
     if (value) {
+      // already in checked studios
       if (previousStudios.some(function (currentStudio) {
         return currentStudio.id === studio.id;
       })) return;
-      this.props.onChange('checkedStudios', '');
+      this.props.onChange('checkedStudios', ''); // this is a workaround for deep change detection of onChange function
+
       this.props.onChange('checkedStudios', __spreadArray(__spreadArray([], previousStudios), [{
         id: studio.id,
         name: studio.name
       }]));
     } else {
-      this.props.onChange('checkedStudios', '');
+      this.props.onChange('checkedStudios', ''); // this is a workaround for deep change detection of onChange function
+
       this.props.onChange('checkedStudios', previousStudios.filter(function (currentStudio) {
         return currentStudio.id !== studio.id;
       }));

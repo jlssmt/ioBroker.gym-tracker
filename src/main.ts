@@ -35,7 +35,10 @@ class GymTracker extends utils.Adapter {
                 case studio.name.includes('FitnessFirst'):
                     utilizationDataPromise.push(
                         axios.get(`https://www.fitnessfirst.de/club/api/checkins/${studio.id}`)
-                            .then(response => response.data.data)
+                            .then(response => {
+                                if (!response || !response.data || !response.data.data) throw new Error(`No utilization data for ${studio.name}`);
+                                return response.data.data;
+                            })
                             .then(data => Math.round(data.check_ins * 100 / data.allowed_people))
                             .then(async result => {
                                 await this.extendAdapterObjectAsync(studioNameForPath, studio.name, 'channel');
@@ -49,7 +52,10 @@ class GymTracker extends utils.Adapter {
                 case studio.name.includes('FitX'):
                     utilizationDataPromise.push(
                         axios.get(`https://www.fitx.de/fitnessstudio/${studio.id}/workload`)
-                            .then(response => response.data)
+                            .then(response => {
+                                if (!response || !response.data) throw new Error(`No utilization data for ${studio.name}`);
+                                return response.data;
+                            })
                             .then(data => JSON.parse(data).workload.percentage)
                             .then(async result => {
                                 await this.extendAdapterObjectAsync(studioNameForPath, studio.name, 'channel');
@@ -63,7 +69,10 @@ class GymTracker extends utils.Adapter {
                 default:
                     utilizationDataPromise.push(
                         axios.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${studio.id}`)
-                            .then(response => response.data.items)
+                            .then(response => {
+                                if (!response || !response.data || !response.data.items) throw new Error(`No utilization data for ${studio.name} (${studio.id})`);
+                                return response.data.items;
+                            })
                             .then(data => data.find((hour: any) => hour.isCurrent).percentage)
                             .then(async result => {
                                 await this.extendAdapterObjectAsync(studioNameForPath, studio.name, 'channel');
@@ -74,6 +83,9 @@ class GymTracker extends utils.Adapter {
                     );
             }
         }
+
+        await Promise.all(utilizationDataPromise)
+            .catch(error => this.log.error(error));
 
         await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
             .then(() => GymTracker.getFitnessFirstStudios())
@@ -96,9 +108,6 @@ class GymTracker extends utils.Adapter {
                 name: `FitX ${studio.name}`,
             }], []))
             .then(fitxStudios => this.extendObjectAsync('data', { native: { fitxStudios } }))
-            .catch(error => this.log.error(error));
-
-        await Promise.all(utilizationDataPromise)
             .catch(error => this.log.error(error));
 
         this.terminate ? this.terminate('All data handled, adapter stopped until next scheduled moment.') : process.exit();
