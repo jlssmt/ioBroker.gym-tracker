@@ -80,14 +80,12 @@ class GymTracker extends utils.Adapter {
                     name: `FitnessFirst ${studio.name}`,
                 }], []))
                 .then(allFitnessFirstStudios => this.extendObjectAsync('data', { native: { allFitnessFirstStudios } }))
-                .catch(error => this.log.error(error)),
         );
 
         studioDataPromise.push(
             this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
                 .then(() => GymTracker.getRsgStudios())
                 .then(allRsgStudios => this.extendObjectAsync('data', { native: { allRsgStudios } }))
-                .catch(error => this.log.error(error)),
         );
 
         studioDataPromise.push(
@@ -98,7 +96,6 @@ class GymTracker extends utils.Adapter {
                     name: `FitX ${studio.name}`,
                 }], []))
                 .then(allFitxStudios => this.extendObjectAsync('data', { native: { allFitxStudios } }))
-                .catch(error => this.log.error(error)),
         );
 
         await Promise.all(utilizationDataPromise)
