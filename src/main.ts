@@ -72,34 +72,30 @@ class GymTracker extends utils.Adapter {
             }
         }
 
-        studioDataPromise.push(
-            this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
-                .then(() => GymTracker.getFitnessFirstStudios())
-                .then((allFitnessFirstStudios) => allFitnessFirstStudios.reduce((acc: StudioInterface[], studio) => [...acc, {
-                    ...studio,
-                    name: `FitnessFirst ${studio.name}`,
-                }], []))
-                .then(allFitnessFirstStudios => this.extendObjectAsync('data', { native: { allFitnessFirstStudios } })),
-        );
+        await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+            .then(() => GymTracker.getFitnessFirstStudios())
+            .then((allFitnessFirstStudios) => allFitnessFirstStudios.reduce((acc: StudioInterface[], studio) => [...acc, {
+                ...studio,
+                name: `FitnessFirst ${studio.name}`,
+            }], []))
+            .then(allFitnessFirstStudios => this.extendObjectAsync('data', { native: { allFitnessFirstStudios } }))
+            .catch(error => this.log.error(error));
 
-        studioDataPromise.push(
-            this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
-                .then(() => GymTracker.getRsgStudios())
-                .then(allRsgStudios => this.extendObjectAsync('data', { native: { allRsgStudios } })),
-        );
+        await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+            .then(() => GymTracker.getRsgStudios())
+            .then(allRsgStudios => this.extendObjectAsync('data', { native: { allRsgStudios } }))
+            .catch(error => this.log.error(error));
 
-        studioDataPromise.push(
-            this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
-                .then(() => fitx)
-                .then((allFitnessFirstStudios) => allFitnessFirstStudios.reduce((acc: StudioInterface[], studio) => [...acc, {
-                    ...studio,
-                    name: `FitX ${studio.name}`,
-                }], []))
-                .then(allFitxStudios => this.extendObjectAsync('data', { native: { allFitxStudios } })),
-        );
+        await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+            .then(() => fitx)
+            .then((allFitnessFirstStudios) => allFitnessFirstStudios.reduce((acc: StudioInterface[], studio) => [...acc, {
+                ...studio,
+                name: `FitX ${studio.name}`,
+            }], []))
+            .then(allFitxStudios => this.extendObjectAsync('data', { native: { allFitxStudios } }))
+            .catch(error => this.log.error(error));
 
         await Promise.all(utilizationDataPromise)
-            .then(() => studioDataPromise)
             .catch(error => this.log.error(error));
 
         this.terminate ? this.terminate('All data handled, adapter stopped until next scheduled moment.') : process.exit();

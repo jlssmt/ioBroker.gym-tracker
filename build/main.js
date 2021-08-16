@@ -80,28 +80,27 @@ class GymTracker extends utils.Adapter {
                         .then(result => this.setStateAsync(`${studio.id}.utilization`, result, true)));
             }
         }
-        studioDataPromise.push(this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+        await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
             .then(() => GymTracker.getFitnessFirstStudios())
             .then((allFitnessFirstStudios) => allFitnessFirstStudios.reduce((acc, studio) => [...acc, {
                 ...studio,
                 name: `FitnessFirst ${studio.name}`,
             }], []))
             .then(allFitnessFirstStudios => this.extendObjectAsync('data', { native: { allFitnessFirstStudios } }))
-            .catch(error => this.log.error(error)));
-        studioDataPromise.push(this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+            .catch(error => this.log.error(error));
+        await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
             .then(() => GymTracker.getRsgStudios())
             .then(allRsgStudios => this.extendObjectAsync('data', { native: { allRsgStudios } }))
-            .catch(error => this.log.error(error)));
-        studioDataPromise.push(this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
+            .catch(error => this.log.error(error));
+        await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
             .then(() => fitx_json_1.default)
             .then((allFitnessFirstStudios) => allFitnessFirstStudios.reduce((acc, studio) => [...acc, {
                 ...studio,
                 name: `FitX ${studio.name}`,
             }], []))
             .then(allFitxStudios => this.extendObjectAsync('data', { native: { allFitxStudios } }))
-            .catch(error => this.log.error(error)));
+            .catch(error => this.log.error(error));
         await Promise.all(utilizationDataPromise)
-            .then(() => studioDataPromise)
             .catch(error => this.log.error(error));
         this.terminate ? this.terminate('All data handled, adapter stopped until next scheduled moment.') : process.exit();
     }

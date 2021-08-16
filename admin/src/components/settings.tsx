@@ -153,20 +153,36 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
         );
     }
 
+    private dataAvailable() {
+        return (this.state.rsgStudios && this.state.rsgStudios.length > 0)
+            || (this.state.fitnessFirstStudios && this.state.fitnessFirstStudios.length > 0)
+            || (this.state.fitxStudios && this.state.fitxStudios.length > 0);
+    }
+
     render() {
         return (
             <div style={{ padding: 20, height: 'calc(100% - 50px)' }}>
-                <TextField
-                    label={I18n.t('searchStudio')}
-                    type="search"
-                    onChange={(e) => this.handleSearch(e.target.value)}
-                    fullWidth
-                />
-                <Grid container style={{ height: 'calc(100% - 28px)', overflow: 'scroll' }}>
-                    {this.state.rsgStudios.map(studio => this.renderStudioGridItem(studio))}
-                    {this.state.fitnessFirstStudios.map(studio => this.renderStudioGridItem(studio))}
-                    {this.state.fitxStudios.map(studio => this.renderStudioGridItem(studio))}
-                </Grid>
+                {!this.dataAvailable() &&
+                <>
+                    No data provided. Please restart Adapter manually or report to developer if
+                    problem exists.
+                </>
+                }
+                {this.dataAvailable() &&
+                <>
+                    <TextField
+                        label={I18n.t('searchStudio')}
+                        type="search"
+                        onChange={(e) => this.handleSearch(e.target.value)}
+                        fullWidth
+                    />
+                    <Grid container style={{ height: 'calc(100% - 28px)', overflow: 'scroll' }}>
+                        {this.state.rsgStudios.map(studio => this.renderStudioGridItem(studio))}
+                        {this.state.fitnessFirstStudios.map(studio => this.renderStudioGridItem(studio))}
+                        {this.state.fitxStudios.map(studio => this.renderStudioGridItem(studio))}
+                    </Grid>
+                </>
+                }
             </div>
         );
     }
