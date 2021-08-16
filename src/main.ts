@@ -27,6 +27,9 @@ class GymTracker extends utils.Adapter {
         const utilizationDataPromise: Promise<any>[] = [];
 
         for (const studio of this.config.checkedStudios || []) {
+
+            const studioNameForPath = studio.name.replace(' ', '_');
+
             switch (true) {
                 case studio.name.includes('FitnessFirst'):
                     utilizationDataPromise.push(
@@ -34,11 +37,11 @@ class GymTracker extends utils.Adapter {
                             .then(response => response.data.data)
                             .then(data => Math.round(data.check_ins * 100 / data.allowed_people))
                             .then(async result => {
-                                await this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel');
-                                await this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number');
+                                await this.extendAdapterObjectAsync(studioNameForPath, studio.name, 'channel');
+                                await this.createAdapterStateIfNotExistsAsync(`${studioNameForPath}.utilization`, 'current utilization', 'number');
                                 return result;
                             })
-                            .then(result => this.setStateAsync(`${studio.id}.utilization`, result, true)),
+                            .then(result => this.setStateAsync(`${studioNameForPath}.utilization`, result, true)),
                     );
                     break;
 
@@ -48,11 +51,11 @@ class GymTracker extends utils.Adapter {
                             .then(response => response.data)
                             .then(data => JSON.parse(data).workload.percentage)
                             .then(async result => {
-                                await this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel');
-                                await this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number');
+                                await this.extendAdapterObjectAsync(studioNameForPath, studio.name, 'channel');
+                                await this.createAdapterStateIfNotExistsAsync(`${studioNameForPath}.utilization`, 'current utilization', 'number');
                                 return result;
                             })
-                            .then(result => this.setStateAsync(`${studio.id}.utilization`, result, true)),
+                            .then(result => this.setStateAsync(`${studioNameForPath}.utilization`, result, true)),
                     );
                     break;
 
@@ -62,11 +65,11 @@ class GymTracker extends utils.Adapter {
                             .then(response => response.data.items)
                             .then(data => data.find((hour: any) => hour.isCurrent).percentage)
                             .then(async result => {
-                                await this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel');
-                                await this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number');
+                                await this.extendAdapterObjectAsync(studioNameForPath, studio.name, 'channel');
+                                await this.createAdapterStateIfNotExistsAsync(`${studioNameForPath}.utilization`, 'current utilization', 'number');
                                 return result;
                             })
-                            .then(result => this.setStateAsync(`${studio.id}.utilization`, result, true)),
+                            .then(result => this.setStateAsync(`${studioNameForPath}.utilization`, result, true)),
                     );
             }
         }

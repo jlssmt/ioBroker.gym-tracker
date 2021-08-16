@@ -44,39 +44,40 @@ class GymTracker extends utils.Adapter {
         this.log.debug(`checked studios: ${JSON.stringify(this.config.checkedStudios)}`);
         const utilizationDataPromise = [];
         for (const studio of this.config.checkedStudios || []) {
+            const studioNameForPath = studio.name.replace(' ', '_');
             switch (true) {
                 case studio.name.includes('FitnessFirst'):
                     utilizationDataPromise.push(axios_1.default.get(`https://www.fitnessfirst.de/club/api/checkins/${studio.id}`)
                         .then(response => response.data.data)
                         .then(data => Math.round(data.check_ins * 100 / data.allowed_people))
                         .then(async (result) => {
-                        await this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel');
-                        await this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number');
+                        await this.extendAdapterObjectAsync(studioNameForPath, studio.name, 'channel');
+                        await this.createAdapterStateIfNotExistsAsync(`${studioNameForPath}.utilization`, 'current utilization', 'number');
                         return result;
                     })
-                        .then(result => this.setStateAsync(`${studio.id}.utilization`, result, true)));
+                        .then(result => this.setStateAsync(`${studioNameForPath}.utilization`, result, true)));
                     break;
                 case studio.name.includes('FitX'):
                     utilizationDataPromise.push(axios_1.default.get(`https://www.fitx.de/fitnessstudio/${studio.id}/workload`)
                         .then(response => response.data)
                         .then(data => JSON.parse(data).workload.percentage)
                         .then(async (result) => {
-                        await this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel');
-                        await this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number');
+                        await this.extendAdapterObjectAsync(studioNameForPath, studio.name, 'channel');
+                        await this.createAdapterStateIfNotExistsAsync(`${studioNameForPath}.utilization`, 'current utilization', 'number');
                         return result;
                     })
-                        .then(result => this.setStateAsync(`${studio.id}.utilization`, result, true)));
+                        .then(result => this.setStateAsync(`${studioNameForPath}.utilization`, result, true)));
                     break;
                 default:
                     utilizationDataPromise.push(axios_1.default.get(`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles%5BstudioId%5D=${studio.id}`)
                         .then(response => response.data.items)
                         .then(data => data.find((hour) => hour.isCurrent).percentage)
                         .then(async (result) => {
-                        await this.extendAdapterObjectAsync(studio.id.toString(), studio.name, 'channel');
-                        await this.createAdapterStateIfNotExistsAsync(`${studio.id}.utilization`, 'current utilization', 'number');
+                        await this.extendAdapterObjectAsync(studioNameForPath, studio.name, 'channel');
+                        await this.createAdapterStateIfNotExistsAsync(`${studioNameForPath}.utilization`, 'current utilization', 'number');
                         return result;
                     })
-                        .then(result => this.setStateAsync(`${studio.id}.utilization`, result, true)));
+                        .then(result => this.setStateAsync(`${studioNameForPath}.utilization`, result, true)));
             }
         }
         await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
