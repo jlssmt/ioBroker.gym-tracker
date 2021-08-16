@@ -23,7 +23,7 @@ This way the utilization can be f.e. integrated into iobroker VIS or send to you
     ### **WORK IN PROGRESS**
 -->
 
-### **WORK IN PROGRESS**
+### 0.1.5-0 (2021-08-16)
 * (jlssmt) added translations
 
 ### 0.1.4-0 (2021-08-16)
