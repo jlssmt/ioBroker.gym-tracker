@@ -3,6 +3,7 @@
  */
 import * as utils from '@iobroker/adapter-core';
 import axios from 'axios';
+import { allSpaces } from './lib/regex';
 import { StudioInterface } from './types/studio.interface';
 import fitx from './data/fitx.json';
 
@@ -28,7 +29,7 @@ class GymTracker extends utils.Adapter {
 
         for (const studio of this.config.checkedStudios || []) {
 
-            const studioNameForPath = studio.name.replace(' ', '_');
+            const studioNameForPath = studio.name.replace(allSpaces, '_');
 
             switch (true) {
                 case studio.name.includes('FitnessFirst'):

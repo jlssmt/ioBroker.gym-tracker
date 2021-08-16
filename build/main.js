@@ -27,6 +27,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const utils = __importStar(require("@iobroker/adapter-core"));
 const axios_1 = __importDefault(require("axios"));
+const regex_1 = require("./lib/regex");
 const fitx_json_1 = __importDefault(require("./data/fitx.json"));
 class GymTracker extends utils.Adapter {
     constructor(options = {}) {
@@ -44,7 +45,7 @@ class GymTracker extends utils.Adapter {
         this.log.debug(`checked studios: ${JSON.stringify(this.config.checkedStudios)}`);
         const utilizationDataPromise = [];
         for (const studio of this.config.checkedStudios || []) {
-            const studioNameForPath = studio.name.replace(' ', '_');
+            const studioNameForPath = studio.name.replace(regex_1.allSpaces, '_');
             switch (true) {
                 case studio.name.includes('FitnessFirst'):
                     utilizationDataPromise.push(axios_1.default.get(`https://www.fitnessfirst.de/club/api/checkins/${studio.id}`)
