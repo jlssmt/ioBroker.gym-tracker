@@ -64,7 +64,9 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
     private handleCheckboxChange(studio: StudioInterface, value: boolean) {
         const previousStudios: StudioInterface[] = this.props.native.checkedStudios;
         if (value) {
+            // already in checked studios
             if (previousStudios.some(currentStudio => currentStudio.id === studio.id)) return;
+
             this.props.onChange('checkedStudios', ''); // this is a workaround for deep change detection of onChange function
             this.props.onChange(
                 'checkedStudios',
