@@ -1,99 +1,49 @@
-import Connection from '@iobroker/adapter-react/Connection';
 import I18n from '@iobroker/adapter-react/i18n';
 import { Grid } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { withStyles } from '@material-ui/core/styles';
-import { CreateCSSProperties } from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
-import React from 'react';
-import { StudioInterface } from '../../../src/types/studio.interface';
-
-const styles = (): Record<string, CreateCSSProperties> => ({
-    input: {
-        marginTop: 0,
-        minWidth: 400,
-    },
-    button: {
-        marginRight: 20,
-    },
-    card: {
-        maxWidth: 345,
-        textAlign: 'center',
-    },
-    media: {
-        height: 180,
-    },
-    column: {
-        display: 'inline-block',
-        verticalAlign: 'top',
-        marginRight: 20,
-    },
-    columnLogo: {
-        width: 350,
-        marginRight: 0,
-    },
-    columnSettings: {
-        width: 'calc(100% - 370px)',
-    },
-    controlElement: {
-        //background: "#d2d2d2",
-        marginBottom: 5,
-    },
-});
+import React, { ReactElement } from 'react';
+import { StudioInterface, StudiosInterface } from '../../../src/types/studio.interface';
+import StudioService from '../services/studio.service';
 
 interface SettingsProps {
-    classes: Record<string, string>;
     native: ioBroker.AdapterConfig;
-    context: {
-        socket: Connection;
-        instance: number;
-    }
+    studioService: StudioService;
 
     onChange: (attr: string, value: StudioInterface[] | string) => void;
 }
 
 interface SettingsState {
-    rsgStudios: StudioInterface[];
-    fitnessFirstStudios: StudioInterface[];
-    fitxStudios: StudioInterface[];
+    studios: StudiosInterface;
 }
 
 class Settings extends React.Component<SettingsProps, SettingsState> {
     private searchTimeout: NodeJS.Timeout = {} as NodeJS.Timeout;
-    private allRsgStudios: StudioInterface[] = [];
-    private allFitnessFirstStudios: StudioInterface[] = [];
-    private allFitxStudios: StudioInterface[] = [];
+    private allStudios: StudiosInterface;
 
     constructor(props: SettingsProps) {
         super(props);
-        this.state = {
-            rsgStudios: [],
-            fitnessFirstStudios: [],
+        this.allStudios = {
             fitxStudios: [],
+            fitnessFirstStudios: [],
+            rsgStudios: [],
+        };
+
+        this.state = {
+            studios: this.allStudios,
         };
 
         this.fetchData();
     }
 
     private fetchData() {
-        this.props.context.socket.getObject(`gym-tracker.${this.props.context.instance}.data`)
+        this.props.studioService.getDataFromBackend(this.props.native.checkedStudios)
             .then(data => {
-                if (!data) throw new Error(I18n.t('noDataProvided'));
-                for (const company in data.native) {
-                    data.native[company] = data.native[company].reduce((acc: StudioInterface[], studio: StudioInterface) => [...acc, {
-                        ...studio,
-                        checked: this.props.native.checkedStudios.some(checkedStudio => checkedStudio.id === studio.id),
-                    }], [])
-                }
-                this.allRsgStudios = data.native.allRsgStudios;
-                this.allFitnessFirstStudios = data.native.allFitnessFirstStudios;
-                this.allFitxStudios = data.native.allFitxStudios;
+                this.allStudios = data;
                 this.setState(state => ({
                     ...state,
-                    rsgStudios: this.allRsgStudios,
-                    fitnessFirstStudios: this.allFitnessFirstStudios,
-                    fitxStudios: this.allFitxStudios,
+                    studios: this.allStudios,
                 }));
             })
             .catch(error => console.log(error));
@@ -104,9 +54,9 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
         this.searchTimeout = setTimeout(() => {
             this.setState(state => ({
                 ...state,
-                rsgStudios: this.allRsgStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
-                fitnessFirstStudios: this.allFitnessFirstStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
-                fitxStudios: this.allFitxStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
+                rsgStudios: this.allStudios.rsgStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
+                fitnessFirstStudios: this.allStudios.fitnessFirstStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
+                fitxStudios: this.allStudios.fitxStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
             }));
         }, 300);
     }
@@ -153,12 +103,12 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
     }
 
     private dataAvailable() {
-        return (this.state.rsgStudios && this.state.rsgStudios.length > 0)
-            || (this.state.fitnessFirstStudios && this.state.fitnessFirstStudios.length > 0)
-            || (this.state.fitxStudios && this.state.fitxStudios.length > 0);
+        return (this.state.studios.rsgStudios && this.state.studios.rsgStudios.length > 0)
+            || (this.state.studios.fitnessFirstStudios && this.state.studios.fitnessFirstStudios.length > 0)
+            || (this.state.studios.fitxStudios && this.state.studios.fitxStudios.length > 0);
     }
 
-    render() {
+    render(): ReactElement {
         return (
             <div style={{ padding: 20, height: 'calc(100% - 50px)' }}>
                 {!this.dataAvailable() &&
@@ -175,9 +125,9 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
                         fullWidth
                     />
                     <Grid container style={{ height: 'calc(100% - 28px)', overflow: 'scroll' }}>
-                        {this.state.rsgStudios.map(studio => this.renderStudioGridItem(studio))}
-                        {this.state.fitnessFirstStudios.map(studio => this.renderStudioGridItem(studio))}
-                        {this.state.fitxStudios.map(studio => this.renderStudioGridItem(studio))}
+                        {this.state.studios.rsgStudios.map(studio => this.renderStudioGridItem(studio))}
+                        {this.state.studios.fitnessFirstStudios.map(studio => this.renderStudioGridItem(studio))}
+                        {this.state.studios.fitxStudios.map(studio => this.renderStudioGridItem(studio))}
                     </Grid>
                 </>
                 }
@@ -186,4 +136,4 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
     }
 }
 
-export default withStyles(styles)(Settings);
+export default Settings;

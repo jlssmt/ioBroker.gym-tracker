@@ -3,7 +3,7 @@
  */
 import * as utils from '@iobroker/adapter-core';
 import axios from 'axios';
-import { allSpaces } from './lib/regex';
+import { allQuotationMarks, allSpaces } from './lib/regex';
 import { StudioInterface } from './types/studio.interface';
 import fitx from './data/fitx.json';
 
@@ -29,7 +29,7 @@ class GymTracker extends utils.Adapter {
 
         for (const studio of this.config.checkedStudios || []) {
 
-            const studioNameForPath = studio.name.replace(allSpaces, '_');
+            const studioNameForPath = studio.name.replace(allSpaces, '_').replace(allQuotationMarks, '');
 
             switch (true) {
                 case studio.name.includes('FitnessFirst'):
@@ -81,12 +81,12 @@ class GymTracker extends utils.Adapter {
                 ...studio,
                 name: `FitnessFirst ${studio.name}`,
             }], []))
-            .then(allFitnessFirstStudios => this.extendObjectAsync('data', { native: { allFitnessFirstStudios } }))
+            .then(fitnessFirstStudios => this.extendObjectAsync('data', { native: { fitnessFirstStudios } }))
             .catch(error => this.log.error(error));
 
         await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
             .then(() => GymTracker.getRsgStudios())
-            .then(allRsgStudios => this.extendObjectAsync('data', { native: { allRsgStudios } }))
+            .then(rsgStudios => this.extendObjectAsync('data', { native: { rsgStudios } }))
             .catch(error => this.log.error(error));
 
         await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
@@ -95,7 +95,7 @@ class GymTracker extends utils.Adapter {
                 ...studio,
                 name: `FitX ${studio.name}`,
             }], []))
-            .then(allFitxStudios => this.extendObjectAsync('data', { native: { allFitxStudios } }))
+            .then(fitxStudios => this.extendObjectAsync('data', { native: { fitxStudios } }))
             .catch(error => this.log.error(error));
 
         await Promise.all(utilizationDataPromise)

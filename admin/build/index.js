@@ -107043,46 +107043,9 @@ var Checkbox_1 = __importDefault(require("@material-ui/core/Checkbox"));
 
 var FormControlLabel_1 = __importDefault(require("@material-ui/core/FormControlLabel"));
 
-var styles_1 = require("@material-ui/core/styles");
-
 var TextField_1 = __importDefault(require("@material-ui/core/TextField"));
 
 var react_1 = __importDefault(require("react"));
-
-var styles = function styles() {
-  return {
-    input: {
-      marginTop: 0,
-      minWidth: 400
-    },
-    button: {
-      marginRight: 20
-    },
-    card: {
-      maxWidth: 345,
-      textAlign: 'center'
-    },
-    media: {
-      height: 180
-    },
-    column: {
-      display: 'inline-block',
-      verticalAlign: 'top',
-      marginRight: 20
-    },
-    columnLogo: {
-      width: 350,
-      marginRight: 0
-    },
-    columnSettings: {
-      width: 'calc(100% - 370px)'
-    },
-    controlElement: {
-      //background: "#d2d2d2",
-      marginBottom: 5
-    }
-  };
-};
 
 var Settings = function (_super) {
   __extends(Settings, _super);
@@ -107091,13 +107054,13 @@ var Settings = function (_super) {
     var _this = _super.call(this, props) || this;
 
     _this.searchTimeout = {};
-    _this.allRsgStudios = [];
-    _this.allFitnessFirstStudios = [];
-    _this.allFitxStudios = [];
-    _this.state = {
-      rsgStudios: [],
+    _this.allStudios = {
+      fitxStudios: [],
       fitnessFirstStudios: [],
-      fitxStudios: []
+      rsgStudios: []
+    };
+    _this.state = {
+      studios: _this.allStudios
     };
 
     _this.fetchData();
@@ -107108,28 +107071,12 @@ var Settings = function (_super) {
   Settings.prototype.fetchData = function () {
     var _this = this;
 
-    this.props.context.socket.getObject("gym-tracker." + this.props.context.instance + ".data").then(function (data) {
-      if (!data) throw new Error(i18n_1.default.t('noDataProvided'));
-
-      for (var company in data.native) {
-        data.native[company] = data.native[company].reduce(function (acc, studio) {
-          return __spreadArray(__spreadArray([], acc), [__assign(__assign({}, studio), {
-            checked: _this.props.native.checkedStudios.some(function (checkedStudio) {
-              return checkedStudio.id === studio.id;
-            })
-          })]);
-        }, []);
-      }
-
-      _this.allRsgStudios = data.native.allRsgStudios;
-      _this.allFitnessFirstStudios = data.native.allFitnessFirstStudios;
-      _this.allFitxStudios = data.native.allFitxStudios;
+    this.props.studioService.getDataFromBackend(this.props.native.checkedStudios).then(function (data) {
+      _this.allStudios = data;
 
       _this.setState(function (state) {
         return __assign(__assign({}, state), {
-          rsgStudios: _this.allRsgStudios,
-          fitnessFirstStudios: _this.allFitnessFirstStudios,
-          fitxStudios: _this.allFitxStudios
+          studios: _this.allStudios
         });
       });
     }).catch(function (error) {
@@ -107144,13 +107091,13 @@ var Settings = function (_super) {
     this.searchTimeout = setTimeout(function () {
       _this.setState(function (state) {
         return __assign(__assign({}, state), {
-          rsgStudios: _this.allRsgStudios.filter(function (studio) {
+          rsgStudios: _this.allStudios.rsgStudios.filter(function (studio) {
             return studio.name.toLowerCase().includes(value.toLowerCase());
           }),
-          fitnessFirstStudios: _this.allFitnessFirstStudios.filter(function (studio) {
+          fitnessFirstStudios: _this.allStudios.fitnessFirstStudios.filter(function (studio) {
             return studio.name.toLowerCase().includes(value.toLowerCase());
           }),
-          fitxStudios: _this.allFitxStudios.filter(function (studio) {
+          fitxStudios: _this.allStudios.fitxStudios.filter(function (studio) {
             return studio.name.toLowerCase().includes(value.toLowerCase());
           })
         });
@@ -107202,7 +107149,7 @@ var Settings = function (_super) {
   };
 
   Settings.prototype.dataAvailable = function () {
-    return this.state.rsgStudios && this.state.rsgStudios.length > 0 || this.state.fitnessFirstStudios && this.state.fitnessFirstStudios.length > 0 || this.state.fitxStudios && this.state.fitxStudios.length > 0;
+    return this.state.studios.rsgStudios && this.state.studios.rsgStudios.length > 0 || this.state.studios.fitnessFirstStudios && this.state.studios.fitnessFirstStudios.length > 0 || this.state.studios.fitxStudios && this.state.studios.fitxStudios.length > 0;
   };
 
   Settings.prototype.render = function () {
@@ -107228,11 +107175,11 @@ var Settings = function (_super) {
         height: 'calc(100% - 28px)',
         overflow: 'scroll'
       }
-    }, this.state.rsgStudios.map(function (studio) {
+    }, this.state.studios.rsgStudios.map(function (studio) {
       return _this.renderStudioGridItem(studio);
-    }), this.state.fitnessFirstStudios.map(function (studio) {
+    }), this.state.studios.fitnessFirstStudios.map(function (studio) {
       return _this.renderStudioGridItem(studio);
-    }), this.state.fitxStudios.map(function (studio) {
+    }), this.state.studios.fitxStudios.map(function (studio) {
       return _this.renderStudioGridItem(studio);
     }))));
   };
@@ -107240,8 +107187,76 @@ var Settings = function (_super) {
   return Settings;
 }(react_1.default.Component);
 
-exports.default = styles_1.withStyles(styles)(Settings);
-},{"@iobroker/adapter-react/i18n":"../../node_modules/@iobroker/adapter-react/i18n.js","@material-ui/core":"../../node_modules/@material-ui/core/esm/index.js","@material-ui/core/Checkbox":"../../node_modules/@material-ui/core/esm/Checkbox/index.js","@material-ui/core/FormControlLabel":"../../node_modules/@material-ui/core/esm/FormControlLabel/index.js","@material-ui/core/styles":"../../node_modules/@material-ui/core/esm/styles/index.js","@material-ui/core/TextField":"../../node_modules/@material-ui/core/esm/TextField/index.js","react":"../../node_modules/react/index.js"}],"i18n/en.json":[function(require,module,exports) {
+exports.default = Settings;
+},{"@iobroker/adapter-react/i18n":"../../node_modules/@iobroker/adapter-react/i18n.js","@material-ui/core":"../../node_modules/@material-ui/core/esm/index.js","@material-ui/core/Checkbox":"../../node_modules/@material-ui/core/esm/Checkbox/index.js","@material-ui/core/FormControlLabel":"../../node_modules/@material-ui/core/esm/FormControlLabel/index.js","@material-ui/core/TextField":"../../node_modules/@material-ui/core/esm/TextField/index.js","react":"../../node_modules/react/index.js"}],"services/studio.service.ts":[function(require,module,exports) {
+"use strict";
+
+var __assign = this && this.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+var __spreadArray = this && this.__spreadArray || function (to, from) {
+  for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) {
+    to[j] = from[i];
+  }
+
+  return to;
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var i18n_1 = __importDefault(require("@iobroker/adapter-react/i18n"));
+
+var StudioService = function () {
+  function StudioService(socket, instance) {
+    this.socket = socket;
+    this.instance = instance;
+  }
+
+  StudioService.prototype.getDataFromBackend = function (checkedStudios) {
+    return this.socket.getObject("gym-tracker." + this.instance + ".data").then(function (data) {
+      if (!data) throw new Error(i18n_1.default.t('noDataProvided'));
+      var result = {};
+
+      for (var company in data.native) {
+        result[company] = data.native[company].reduce(function (acc, studio) {
+          return __spreadArray(__spreadArray([], acc), [__assign(__assign({}, studio), {
+            checked: checkedStudios.some(function (checkedStudio) {
+              return checkedStudio.id === studio.id;
+            })
+          })]);
+        }, []);
+      }
+
+      return result;
+    });
+  };
+
+  return StudioService;
+}();
+
+exports.default = StudioService;
+},{"@iobroker/adapter-react/i18n":"../../node_modules/@iobroker/adapter-react/i18n.js"}],"i18n/en.json":[function(require,module,exports) {
 module.exports = {
   "gym-tracker adapter settings": "Adapter settings for gym-tracker",
   "searchStudio": "Search studio",
@@ -107366,6 +107381,8 @@ var GenericApp_1 = __importDefault(require("@iobroker/adapter-react/GenericApp")
 
 var settings_1 = __importDefault(require("./components/settings"));
 
+var studio_service_1 = __importDefault(require("./services/studio.service"));
+
 var styles = function styles(_theme) {
   return {
     root: {}
@@ -107412,10 +107429,7 @@ var App = function (_super) {
       className: "App"
     }, react_1.default.createElement(settings_1.default, {
       native: this.state.native,
-      context: {
-        socket: this.socket,
-        instance: this.instance
-      },
+      studioService: new studio_service_1.default(this.socket, this.instance),
       onChange: function onChange(attr, value) {
         return _this.updateNativeValue(attr, value);
       }
@@ -107426,7 +107440,7 @@ var App = function (_super) {
 }(GenericApp_1.default);
 
 exports.default = styles_1.withStyles(styles)(App);
-},{"react":"../../node_modules/react/index.js","@material-ui/core/styles":"../../node_modules/@material-ui/core/esm/styles/index.js","@iobroker/adapter-react/GenericApp":"../../node_modules/@iobroker/adapter-react/GenericApp.js","./components/settings":"components/settings.tsx","./i18n/en.json":"i18n/en.json","./i18n/de.json":"i18n/de.json","./i18n/ru.json":"i18n/ru.json","./i18n/pt.json":"i18n/pt.json","./i18n/nl.json":"i18n/nl.json","./i18n/fr.json":"i18n/fr.json","./i18n/it.json":"i18n/it.json","./i18n/es.json":"i18n/es.json","./i18n/pl.json":"i18n/pl.json","./i18n/zh-cn.json":"i18n/zh-cn.json"}],"index.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","@material-ui/core/styles":"../../node_modules/@material-ui/core/esm/styles/index.js","@iobroker/adapter-react/GenericApp":"../../node_modules/@iobroker/adapter-react/GenericApp.js","./components/settings":"components/settings.tsx","./services/studio.service":"services/studio.service.ts","./i18n/en.json":"i18n/en.json","./i18n/de.json":"i18n/de.json","./i18n/ru.json":"i18n/ru.json","./i18n/pt.json":"i18n/pt.json","./i18n/nl.json":"i18n/nl.json","./i18n/fr.json":"i18n/fr.json","./i18n/it.json":"i18n/it.json","./i18n/es.json":"i18n/es.json","./i18n/pl.json":"i18n/pl.json","./i18n/zh-cn.json":"i18n/zh-cn.json"}],"index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -107494,7 +107508,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52700" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55479" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -45,7 +45,7 @@ class GymTracker extends utils.Adapter {
         this.log.debug(`checked studios: ${JSON.stringify(this.config.checkedStudios)}`);
         const utilizationDataPromise = [];
         for (const studio of this.config.checkedStudios || []) {
-            const studioNameForPath = studio.name.replace(regex_1.allSpaces, '_');
+            const studioNameForPath = studio.name.replace(regex_1.allSpaces, '_').replace(regex_1.allQuotationMarks, '');
             switch (true) {
                 case studio.name.includes('FitnessFirst'):
                     utilizationDataPromise.push(axios_1.default.get(`https://www.fitnessfirst.de/club/api/checkins/${studio.id}`)
@@ -87,11 +87,11 @@ class GymTracker extends utils.Adapter {
                 ...studio,
                 name: `FitnessFirst ${studio.name}`,
             }], []))
-            .then(allFitnessFirstStudios => this.extendObjectAsync('data', { native: { allFitnessFirstStudios } }))
+            .then(fitnessFirstStudios => this.extendObjectAsync('data', { native: { fitnessFirstStudios } }))
             .catch(error => this.log.error(error));
         await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
             .then(() => GymTracker.getRsgStudios())
-            .then(allRsgStudios => this.extendObjectAsync('data', { native: { allRsgStudios } }))
+            .then(rsgStudios => this.extendObjectAsync('data', { native: { rsgStudios } }))
             .catch(error => this.log.error(error));
         await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
             .then(() => fitx_json_1.default)
@@ -99,7 +99,7 @@ class GymTracker extends utils.Adapter {
                 ...studio,
                 name: `FitX ${studio.name}`,
             }], []))
-            .then(allFitxStudios => this.extendObjectAsync('data', { native: { allFitxStudios } }))
+            .then(fitxStudios => this.extendObjectAsync('data', { native: { fitxStudios } }))
             .catch(error => this.log.error(error));
         await Promise.all(utilizationDataPromise)
             .catch(error => this.log.error(error));
