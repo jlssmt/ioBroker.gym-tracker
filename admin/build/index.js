@@ -107213,7 +107213,9 @@ var Settings = function (_super) {
         padding: 20,
         height: 'calc(100% - 50px)'
       }
-    }, !this.dataAvailable() && react_1.default.createElement(react_1.default.Fragment, null, i18n_1.default.t('noDataProvided')), this.dataAvailable() && react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(TextField_1.default, {
+    }, !this.dataAvailable() && react_1.default.createElement(react_1.default.Fragment, null, setTimeout(function () {
+      return _this.fetchData();
+    }, 1000) && i18n_1.default.t('noDataProvided')), this.dataAvailable() && react_1.default.createElement(react_1.default.Fragment, null, react_1.default.createElement(TextField_1.default, {
       label: i18n_1.default.t('searchStudio'),
       type: "search",
       onChange: function onChange(e) {
@@ -107492,7 +107494,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57506" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52700" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

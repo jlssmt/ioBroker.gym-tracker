@@ -97,7 +97,6 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
                 }));
             })
             .catch(error => console.log(error));
-
     }
 
     private handleSearch(value: string) {
@@ -164,7 +163,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
             <div style={{ padding: 20, height: 'calc(100% - 50px)' }}>
                 {!this.dataAvailable() &&
                 <>
-                    {I18n.t('noDataProvided')}
+                    {setTimeout(() => this.fetchData(), 1000) && I18n.t('noDataProvided')}
                 </>
                 }
                 {this.dataAvailable() &&
