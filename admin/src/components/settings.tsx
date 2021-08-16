@@ -79,7 +79,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
     private fetchData() {
         this.props.context.socket.getObject(`gym-tracker.${this.props.context.instance}.data`)
             .then(data => {
-                if (!data) throw new Error('Backend provided no data. Please restart adapter!');
+                if (!data) throw new Error(I18n.t('noDataProvided'));
                 for (const company in data.native) {
                     data.native[company] = data.native[company].reduce((acc: StudioInterface[], studio: StudioInterface) => [...acc, {
                         ...studio,
@@ -164,8 +164,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
             <div style={{ padding: 20, height: 'calc(100% - 50px)' }}>
                 {!this.dataAvailable() &&
                 <>
-                    No data provided. Please restart Adapter manually or report to developer if
-                    problem exists.
+                    {I18n.t('noDataProvided')}
                 </>
                 }
                 {this.dataAvailable() &&

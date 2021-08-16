@@ -43,7 +43,6 @@ class GymTracker extends utils.Adapter {
     async onReady() {
         this.log.debug(`checked studios: ${JSON.stringify(this.config.checkedStudios)}`);
         const utilizationDataPromise = [];
-        const studioDataPromise = [];
         for (const studio of this.config.checkedStudios || []) {
             switch (true) {
                 case studio.name.includes('FitnessFirst'):

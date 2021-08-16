@@ -13,8 +13,9 @@
 
 ## gym-tracker adapter for ioBroker
 
-This adapter loads the current capacity utilization of fitness studios of different studio companys into the ioBroker.
-This way the workload can be integrated into iobroker VIS.
+This adapter loads the current capacity utilization of fitness studios of different companies into  ioBroker.
+
+This way the utilization can be f.e. integrated into iobroker VIS or send to your phone by telegram.
 
 ## Changelog
 <!--

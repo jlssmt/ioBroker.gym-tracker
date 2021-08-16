@@ -1,5 +1,5 @@
 {
-    "mcfit adapter settings": "mcfit的适配器设置",
-    "option1": "选项1",
-    "option2": "选项2"
+    "gym-tracker adapter settings": "健身房追踪器的适配器设置",
+    "searchStudio": "搜索工作室",
+    "noDataProvided": "未加载数据 - 如果问题仍然存在，请手动重新启动适配器或将问题报告给开发人员。"
 }

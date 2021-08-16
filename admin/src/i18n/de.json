@@ -1,5 +1,5 @@
 {
-    "mcfit adapter settings": "Adaptereinstellungen für mcfit",
-    "option1": "Option 1",
-    "option2": "Option 2"
+    "gym-tracker adapter settings": "Adaptereinstellungen für Gym-Tracker",
+    "searchStudio": "Studio suchen",
+    "noDataProvided": "Keine Daten geladen - Bitte starten Sie den Adapter manuell neu oder melden Sie das Problem dem Entwickler, wenn das Problem weiterhin besteht."
 }
