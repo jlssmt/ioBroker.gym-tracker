@@ -12,13 +12,13 @@ class StudioService {
         this.instance = instance;
     }
 
-    getDataFromBackend(checkedStudios: StudioInterface[]): Promise<StudiosInterface> {
+    getStudiosFromBackend(checkedStudios: StudioInterface[]): Promise<StudiosInterface> {
         return this.socket.getObject(`gym-tracker.${this.instance}.data`)
             .then(data => {
-                if (!data) throw new Error(I18n.t('noDataProvided'));
+                if (!data || !data.native || !data.native.allStudios) throw new Error(I18n.t('noDataProvided'));
                 const result: StudiosInterface = {} as StudiosInterface;
-                for (const company in data.native) {
-                    result[company] = data.native[company].reduce((acc: StudioInterface[], studio: StudioInterface) => [...acc, {
+                for (const company in data.native.allStudios) {
+                    result[company] = data.native.allStudios[company].reduce((acc: StudioInterface[], studio: StudioInterface) => [...acc, {
                         ...studio,
                         checked: checkedStudios.some(checkedStudio => checkedStudio.id === studio.id),
                     }], []);

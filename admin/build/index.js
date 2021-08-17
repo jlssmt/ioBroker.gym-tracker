@@ -106970,7 +106970,7 @@ Object.keys(_Zoom).forEach(function (key) {
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-},{"./colors":"../../node_modules/@material-ui/core/esm/colors/index.js","./styles":"../../node_modules/@material-ui/core/esm/styles/index.js","./utils":"../../node_modules/@material-ui/core/esm/utils/index.js","./Accordion":"../../node_modules/@material-ui/core/esm/Accordion/index.js","./AccordionActions":"../../node_modules/@material-ui/core/esm/AccordionActions/index.js","./AccordionDetails":"../../node_modules/@material-ui/core/esm/AccordionDetails/index.js","./AccordionSummary":"../../node_modules/@material-ui/core/esm/AccordionSummary/index.js","./AppBar":"../../node_modules/@material-ui/core/esm/AppBar/index.js","./Avatar":"../../node_modules/@material-ui/core/esm/Avatar/index.js","./Backdrop":"../../node_modules/@material-ui/core/esm/Backdrop/index.js","./Badge":"../../node_modules/@material-ui/core/esm/Badge/index.js","./BottomNavigation":"../../node_modules/@material-ui/core/esm/BottomNavigation/index.js","./BottomNavigationAction":"../../node_modules/@material-ui/core/esm/BottomNavigationAction/index.js","./Box":"../../node_modules/@material-ui/core/esm/Box/index.js","./Breadcrumbs":"../../node_modules/@material-ui/core/esm/Breadcrumbs/index.js","./Button":"../../node_modules/@material-ui/core/esm/Button/index.js","./ButtonBase":"../../node_modules/@material-ui/core/esm/ButtonBase/index.js","./ButtonGroup":"../../node_modules/@material-ui/core/esm/ButtonGroup/index.js","./Card":"../../node_modules/@material-ui/core/esm/Card/index.js","./CardActionArea":"../../node_modules/@material-ui/core/esm/CardActionArea/index.js","./CardActions":"../../node_modules/@material-ui/core/esm/CardActions/index.js","./CardContent":"../../node_modules/@material-ui/core/esm/CardContent/index.js","./CardHeader":"../../node_modules/@material-ui/core/esm/CardHeader/index.js","./CardMedia":"../../node_modules/@material-ui/core/esm/CardMedia/index.js","./Checkbox":"../../node_modules/@material-ui/core/esm/Checkbox/index.js","./Chip":"../../node_modules/@material-ui/core/esm/Chip/index.js","./CircularProgress":"../../node_modules/@material-ui/core/esm/CircularProgress/index.js","./ClickAwayListener":"../../node_modules/@material-ui/core/esm/ClickAwayListener/index.js","./Collapse":"../../node_modules/@material-ui/core/esm/Collapse/index.js","./Container":"../../node_modules/@material-ui/core/esm/Container/index.js","./CssBaseline":"../../node_modules/@material-ui/core/esm/CssBaseline/index.js","./Dialog":"../../node_modules/@material-ui/core/esm/Dialog/index.js","./DialogActions":"../../node_modules/@material-ui/core/esm/DialogActions/index.js","./DialogContent":"../../node_modules/@material-ui/core/esm/DialogContent/index.js","./DialogContentText":"../../node_modules/@material-ui/core/esm/DialogContentText/index.js","./DialogTitle":"../../node_modules/@material-ui/core/esm/DialogTitle/index.js","./Divider":"../../node_modules/@material-ui/core/esm/Divider/index.js","./Drawer":"../../node_modules/@material-ui/core/esm/Drawer/index.js","./ExpansionPanel":"../../node_modules/@material-ui/core/esm/ExpansionPanel/index.js","./ExpansionPanelActions":"../../node_modules/@material-ui/core/esm/ExpansionPanelActions/index.js","./ExpansionPanelDetails":"../../node_modules/@material-ui/core/esm/ExpansionPanelDetails/index.js","./ExpansionPanelSummary":"../../node_modules/@material-ui/core/esm/ExpansionPanelSummary/index.js","./Fab":"../../node_modules/@material-ui/core/esm/Fab/index.js","./Fade":"../../node_modules/@material-ui/core/esm/Fade/index.js","./FilledInput":"../../node_modules/@material-ui/core/esm/FilledInput/index.js","./FormControl":"../../node_modules/@material-ui/core/esm/FormControl/index.js","./FormControlLabel":"../../node_modules/@material-ui/core/esm/FormControlLabel/index.js","./FormGroup":"../../node_modules/@material-ui/core/esm/FormGroup/index.js","./FormHelperText":"../../node_modules/@material-ui/core/esm/FormHelperText/index.js","./FormLabel":"../../node_modules/@material-ui/core/esm/FormLabel/index.js","./Grid":"../../node_modules/@material-ui/core/esm/Grid/index.js","./GridList":"../../node_modules/@material-ui/core/esm/GridList/index.js","./GridListTile":"../../node_modules/@material-ui/core/esm/GridListTile/index.js","./GridListTileBar":"../../node_modules/@material-ui/core/esm/GridListTileBar/index.js","./Grow":"../../node_modules/@material-ui/core/esm/Grow/index.js","./Hidden":"../../node_modules/@material-ui/core/esm/Hidden/index.js","./Icon":"../../node_modules/@material-ui/core/esm/Icon/index.js","./IconButton":"../../node_modules/@material-ui/core/esm/IconButton/index.js","./ImageList":"../../node_modules/@material-ui/core/esm/ImageList/index.js","./ImageListItem":"../../node_modules/@material-ui/core/esm/ImageListItem/index.js","./ImageListItemBar":"../../node_modules/@material-ui/core/esm/ImageListItemBar/index.js","./Input":"../../node_modules/@material-ui/core/esm/Input/index.js","./InputAdornment":"../../node_modules/@material-ui/core/esm/InputAdornment/index.js","./InputBase":"../../node_modules/@material-ui/core/esm/InputBase/index.js","./InputLabel":"../../node_modules/@material-ui/core/esm/InputLabel/index.js","./LinearProgress":"../../node_modules/@material-ui/core/esm/LinearProgress/index.js","./Link":"../../node_modules/@material-ui/core/esm/Link/index.js","./List":"../../node_modules/@material-ui/core/esm/List/index.js","./ListItem":"../../node_modules/@material-ui/core/esm/ListItem/index.js","./ListItemAvatar":"../../node_modules/@material-ui/core/esm/ListItemAvatar/index.js","./ListItemIcon":"../../node_modules/@material-ui/core/esm/ListItemIcon/index.js","./ListItemSecondaryAction":"../../node_modules/@material-ui/core/esm/ListItemSecondaryAction/index.js","./ListItemText":"../../node_modules/@material-ui/core/esm/ListItemText/index.js","./ListSubheader":"../../node_modules/@material-ui/core/esm/ListSubheader/index.js","./Menu":"../../node_modules/@material-ui/core/esm/Menu/index.js","./MenuItem":"../../node_modules/@material-ui/core/esm/MenuItem/index.js","./MenuList":"../../node_modules/@material-ui/core/esm/MenuList/index.js","./MobileStepper":"../../node_modules/@material-ui/core/esm/MobileStepper/index.js","./Modal":"../../node_modules/@material-ui/core/esm/Modal/index.js","./NativeSelect":"../../node_modules/@material-ui/core/esm/NativeSelect/index.js","./NoSsr":"../../node_modules/@material-ui/core/esm/NoSsr/index.js","./OutlinedInput":"../../node_modules/@material-ui/core/esm/OutlinedInput/index.js","./Paper":"../../node_modules/@material-ui/core/esm/Paper/index.js","./Popover":"../../node_modules/@material-ui/core/esm/Popover/index.js","./Popper":"../../node_modules/@material-ui/core/esm/Popper/index.js","./Portal":"../../node_modules/@material-ui/core/esm/Portal/index.js","./Radio":"../../node_modules/@material-ui/core/esm/Radio/index.js","./RadioGroup":"../../node_modules/@material-ui/core/esm/RadioGroup/index.js","./RootRef":"../../node_modules/@material-ui/core/esm/RootRef/index.js","./Select":"../../node_modules/@material-ui/core/esm/Select/index.js","./Slide":"../../node_modules/@material-ui/core/esm/Slide/index.js","./Slider":"../../node_modules/@material-ui/core/esm/Slider/index.js","./Snackbar":"../../node_modules/@material-ui/core/esm/Snackbar/index.js","./SnackbarContent":"../../node_modules/@material-ui/core/esm/SnackbarContent/index.js","./Step":"../../node_modules/@material-ui/core/esm/Step/index.js","./StepButton":"../../node_modules/@material-ui/core/esm/StepButton/index.js","./StepConnector":"../../node_modules/@material-ui/core/esm/StepConnector/index.js","./StepContent":"../../node_modules/@material-ui/core/esm/StepContent/index.js","./StepIcon":"../../node_modules/@material-ui/core/esm/StepIcon/index.js","./StepLabel":"../../node_modules/@material-ui/core/esm/StepLabel/index.js","./Stepper":"../../node_modules/@material-ui/core/esm/Stepper/index.js","./SvgIcon":"../../node_modules/@material-ui/core/esm/SvgIcon/index.js","./SwipeableDrawer":"../../node_modules/@material-ui/core/esm/SwipeableDrawer/index.js","./Switch":"../../node_modules/@material-ui/core/esm/Switch/index.js","./Tab":"../../node_modules/@material-ui/core/esm/Tab/index.js","./Table":"../../node_modules/@material-ui/core/esm/Table/index.js","./TableBody":"../../node_modules/@material-ui/core/esm/TableBody/index.js","./TableCell":"../../node_modules/@material-ui/core/esm/TableCell/index.js","./TableContainer":"../../node_modules/@material-ui/core/esm/TableContainer/index.js","./TableFooter":"../../node_modules/@material-ui/core/esm/TableFooter/index.js","./TableHead":"../../node_modules/@material-ui/core/esm/TableHead/index.js","./TablePagination":"../../node_modules/@material-ui/core/esm/TablePagination/index.js","./TableRow":"../../node_modules/@material-ui/core/esm/TableRow/index.js","./TableSortLabel":"../../node_modules/@material-ui/core/esm/TableSortLabel/index.js","./Tabs":"../../node_modules/@material-ui/core/esm/Tabs/index.js","./TabScrollButton":"../../node_modules/@material-ui/core/esm/TabScrollButton/index.js","./TextField":"../../node_modules/@material-ui/core/esm/TextField/index.js","./TextareaAutosize":"../../node_modules/@material-ui/core/esm/TextareaAutosize/index.js","./Toolbar":"../../node_modules/@material-ui/core/esm/Toolbar/index.js","./Tooltip":"../../node_modules/@material-ui/core/esm/Tooltip/index.js","./Typography":"../../node_modules/@material-ui/core/esm/Typography/index.js","./Unstable_TrapFocus":"../../node_modules/@material-ui/core/esm/Unstable_TrapFocus/index.js","./useMediaQuery":"../../node_modules/@material-ui/core/esm/useMediaQuery/index.js","./useScrollTrigger":"../../node_modules/@material-ui/core/esm/useScrollTrigger/index.js","./withMobileDialog":"../../node_modules/@material-ui/core/esm/withMobileDialog/index.js","./withWidth":"../../node_modules/@material-ui/core/esm/withWidth/index.js","./Zoom":"../../node_modules/@material-ui/core/esm/Zoom/index.js"}],"components/settings.tsx":[function(require,module,exports) {
+},{"./colors":"../../node_modules/@material-ui/core/esm/colors/index.js","./styles":"../../node_modules/@material-ui/core/esm/styles/index.js","./utils":"../../node_modules/@material-ui/core/esm/utils/index.js","./Accordion":"../../node_modules/@material-ui/core/esm/Accordion/index.js","./AccordionActions":"../../node_modules/@material-ui/core/esm/AccordionActions/index.js","./AccordionDetails":"../../node_modules/@material-ui/core/esm/AccordionDetails/index.js","./AccordionSummary":"../../node_modules/@material-ui/core/esm/AccordionSummary/index.js","./AppBar":"../../node_modules/@material-ui/core/esm/AppBar/index.js","./Avatar":"../../node_modules/@material-ui/core/esm/Avatar/index.js","./Backdrop":"../../node_modules/@material-ui/core/esm/Backdrop/index.js","./Badge":"../../node_modules/@material-ui/core/esm/Badge/index.js","./BottomNavigation":"../../node_modules/@material-ui/core/esm/BottomNavigation/index.js","./BottomNavigationAction":"../../node_modules/@material-ui/core/esm/BottomNavigationAction/index.js","./Box":"../../node_modules/@material-ui/core/esm/Box/index.js","./Breadcrumbs":"../../node_modules/@material-ui/core/esm/Breadcrumbs/index.js","./Button":"../../node_modules/@material-ui/core/esm/Button/index.js","./ButtonBase":"../../node_modules/@material-ui/core/esm/ButtonBase/index.js","./ButtonGroup":"../../node_modules/@material-ui/core/esm/ButtonGroup/index.js","./Card":"../../node_modules/@material-ui/core/esm/Card/index.js","./CardActionArea":"../../node_modules/@material-ui/core/esm/CardActionArea/index.js","./CardActions":"../../node_modules/@material-ui/core/esm/CardActions/index.js","./CardContent":"../../node_modules/@material-ui/core/esm/CardContent/index.js","./CardHeader":"../../node_modules/@material-ui/core/esm/CardHeader/index.js","./CardMedia":"../../node_modules/@material-ui/core/esm/CardMedia/index.js","./Checkbox":"../../node_modules/@material-ui/core/esm/Checkbox/index.js","./Chip":"../../node_modules/@material-ui/core/esm/Chip/index.js","./CircularProgress":"../../node_modules/@material-ui/core/esm/CircularProgress/index.js","./ClickAwayListener":"../../node_modules/@material-ui/core/esm/ClickAwayListener/index.js","./Collapse":"../../node_modules/@material-ui/core/esm/Collapse/index.js","./Container":"../../node_modules/@material-ui/core/esm/Container/index.js","./CssBaseline":"../../node_modules/@material-ui/core/esm/CssBaseline/index.js","./Dialog":"../../node_modules/@material-ui/core/esm/Dialog/index.js","./DialogActions":"../../node_modules/@material-ui/core/esm/DialogActions/index.js","./DialogContent":"../../node_modules/@material-ui/core/esm/DialogContent/index.js","./DialogContentText":"../../node_modules/@material-ui/core/esm/DialogContentText/index.js","./DialogTitle":"../../node_modules/@material-ui/core/esm/DialogTitle/index.js","./Divider":"../../node_modules/@material-ui/core/esm/Divider/index.js","./Drawer":"../../node_modules/@material-ui/core/esm/Drawer/index.js","./ExpansionPanel":"../../node_modules/@material-ui/core/esm/ExpansionPanel/index.js","./ExpansionPanelActions":"../../node_modules/@material-ui/core/esm/ExpansionPanelActions/index.js","./ExpansionPanelDetails":"../../node_modules/@material-ui/core/esm/ExpansionPanelDetails/index.js","./ExpansionPanelSummary":"../../node_modules/@material-ui/core/esm/ExpansionPanelSummary/index.js","./Fab":"../../node_modules/@material-ui/core/esm/Fab/index.js","./Fade":"../../node_modules/@material-ui/core/esm/Fade/index.js","./FilledInput":"../../node_modules/@material-ui/core/esm/FilledInput/index.js","./FormControl":"../../node_modules/@material-ui/core/esm/FormControl/index.js","./FormControlLabel":"../../node_modules/@material-ui/core/esm/FormControlLabel/index.js","./FormGroup":"../../node_modules/@material-ui/core/esm/FormGroup/index.js","./FormHelperText":"../../node_modules/@material-ui/core/esm/FormHelperText/index.js","./FormLabel":"../../node_modules/@material-ui/core/esm/FormLabel/index.js","./Grid":"../../node_modules/@material-ui/core/esm/Grid/index.js","./GridList":"../../node_modules/@material-ui/core/esm/GridList/index.js","./GridListTile":"../../node_modules/@material-ui/core/esm/GridListTile/index.js","./GridListTileBar":"../../node_modules/@material-ui/core/esm/GridListTileBar/index.js","./Grow":"../../node_modules/@material-ui/core/esm/Grow/index.js","./Hidden":"../../node_modules/@material-ui/core/esm/Hidden/index.js","./Icon":"../../node_modules/@material-ui/core/esm/Icon/index.js","./IconButton":"../../node_modules/@material-ui/core/esm/IconButton/index.js","./ImageList":"../../node_modules/@material-ui/core/esm/ImageList/index.js","./ImageListItem":"../../node_modules/@material-ui/core/esm/ImageListItem/index.js","./ImageListItemBar":"../../node_modules/@material-ui/core/esm/ImageListItemBar/index.js","./Input":"../../node_modules/@material-ui/core/esm/Input/index.js","./InputAdornment":"../../node_modules/@material-ui/core/esm/InputAdornment/index.js","./InputBase":"../../node_modules/@material-ui/core/esm/InputBase/index.js","./InputLabel":"../../node_modules/@material-ui/core/esm/InputLabel/index.js","./LinearProgress":"../../node_modules/@material-ui/core/esm/LinearProgress/index.js","./Link":"../../node_modules/@material-ui/core/esm/Link/index.js","./List":"../../node_modules/@material-ui/core/esm/List/index.js","./ListItem":"../../node_modules/@material-ui/core/esm/ListItem/index.js","./ListItemAvatar":"../../node_modules/@material-ui/core/esm/ListItemAvatar/index.js","./ListItemIcon":"../../node_modules/@material-ui/core/esm/ListItemIcon/index.js","./ListItemSecondaryAction":"../../node_modules/@material-ui/core/esm/ListItemSecondaryAction/index.js","./ListItemText":"../../node_modules/@material-ui/core/esm/ListItemText/index.js","./ListSubheader":"../../node_modules/@material-ui/core/esm/ListSubheader/index.js","./Menu":"../../node_modules/@material-ui/core/esm/Menu/index.js","./MenuItem":"../../node_modules/@material-ui/core/esm/MenuItem/index.js","./MenuList":"../../node_modules/@material-ui/core/esm/MenuList/index.js","./MobileStepper":"../../node_modules/@material-ui/core/esm/MobileStepper/index.js","./Modal":"../../node_modules/@material-ui/core/esm/Modal/index.js","./NativeSelect":"../../node_modules/@material-ui/core/esm/NativeSelect/index.js","./NoSsr":"../../node_modules/@material-ui/core/esm/NoSsr/index.js","./OutlinedInput":"../../node_modules/@material-ui/core/esm/OutlinedInput/index.js","./Paper":"../../node_modules/@material-ui/core/esm/Paper/index.js","./Popover":"../../node_modules/@material-ui/core/esm/Popover/index.js","./Popper":"../../node_modules/@material-ui/core/esm/Popper/index.js","./Portal":"../../node_modules/@material-ui/core/esm/Portal/index.js","./Radio":"../../node_modules/@material-ui/core/esm/Radio/index.js","./RadioGroup":"../../node_modules/@material-ui/core/esm/RadioGroup/index.js","./RootRef":"../../node_modules/@material-ui/core/esm/RootRef/index.js","./Select":"../../node_modules/@material-ui/core/esm/Select/index.js","./Slide":"../../node_modules/@material-ui/core/esm/Slide/index.js","./Slider":"../../node_modules/@material-ui/core/esm/Slider/index.js","./Snackbar":"../../node_modules/@material-ui/core/esm/Snackbar/index.js","./SnackbarContent":"../../node_modules/@material-ui/core/esm/SnackbarContent/index.js","./Step":"../../node_modules/@material-ui/core/esm/Step/index.js","./StepButton":"../../node_modules/@material-ui/core/esm/StepButton/index.js","./StepConnector":"../../node_modules/@material-ui/core/esm/StepConnector/index.js","./StepContent":"../../node_modules/@material-ui/core/esm/StepContent/index.js","./StepIcon":"../../node_modules/@material-ui/core/esm/StepIcon/index.js","./StepLabel":"../../node_modules/@material-ui/core/esm/StepLabel/index.js","./Stepper":"../../node_modules/@material-ui/core/esm/Stepper/index.js","./SvgIcon":"../../node_modules/@material-ui/core/esm/SvgIcon/index.js","./SwipeableDrawer":"../../node_modules/@material-ui/core/esm/SwipeableDrawer/index.js","./Switch":"../../node_modules/@material-ui/core/esm/Switch/index.js","./Tab":"../../node_modules/@material-ui/core/esm/Tab/index.js","./Table":"../../node_modules/@material-ui/core/esm/Table/index.js","./TableBody":"../../node_modules/@material-ui/core/esm/TableBody/index.js","./TableCell":"../../node_modules/@material-ui/core/esm/TableCell/index.js","./TableContainer":"../../node_modules/@material-ui/core/esm/TableContainer/index.js","./TableFooter":"../../node_modules/@material-ui/core/esm/TableFooter/index.js","./TableHead":"../../node_modules/@material-ui/core/esm/TableHead/index.js","./TablePagination":"../../node_modules/@material-ui/core/esm/TablePagination/index.js","./TableRow":"../../node_modules/@material-ui/core/esm/TableRow/index.js","./TableSortLabel":"../../node_modules/@material-ui/core/esm/TableSortLabel/index.js","./Tabs":"../../node_modules/@material-ui/core/esm/Tabs/index.js","./TabScrollButton":"../../node_modules/@material-ui/core/esm/TabScrollButton/index.js","./TextField":"../../node_modules/@material-ui/core/esm/TextField/index.js","./TextareaAutosize":"../../node_modules/@material-ui/core/esm/TextareaAutosize/index.js","./Toolbar":"../../node_modules/@material-ui/core/esm/Toolbar/index.js","./Tooltip":"../../node_modules/@material-ui/core/esm/Tooltip/index.js","./Typography":"../../node_modules/@material-ui/core/esm/Typography/index.js","./Unstable_TrapFocus":"../../node_modules/@material-ui/core/esm/Unstable_TrapFocus/index.js","./useMediaQuery":"../../node_modules/@material-ui/core/esm/useMediaQuery/index.js","./useScrollTrigger":"../../node_modules/@material-ui/core/esm/useScrollTrigger/index.js","./withMobileDialog":"../../node_modules/@material-ui/core/esm/withMobileDialog/index.js","./withWidth":"../../node_modules/@material-ui/core/esm/withWidth/index.js","./Zoom":"../../node_modules/@material-ui/core/esm/Zoom/index.js"}],"components/settings.component.tsx":[function(require,module,exports) {
 "use strict";
 
 var __extends = this && this.__extends || function () {
@@ -107047,10 +107047,10 @@ var TextField_1 = __importDefault(require("@material-ui/core/TextField"));
 
 var react_1 = __importDefault(require("react"));
 
-var Settings = function (_super) {
-  __extends(Settings, _super);
+var SettingsComponent = function (_super) {
+  __extends(SettingsComponent, _super);
 
-  function Settings(props) {
+  function SettingsComponent(props) {
     var _this = _super.call(this, props) || this;
 
     _this.searchTimeout = {};
@@ -107068,10 +107068,10 @@ var Settings = function (_super) {
     return _this;
   }
 
-  Settings.prototype.fetchData = function () {
+  SettingsComponent.prototype.fetchData = function () {
     var _this = this;
 
-    this.props.studioService.getDataFromBackend(this.props.native.checkedStudios).then(function (data) {
+    this.props.studioService.getStudiosFromBackend(this.props.native.checkedStudios).then(function (data) {
       _this.allStudios = data;
 
       _this.setState(function (state) {
@@ -107084,7 +107084,7 @@ var Settings = function (_super) {
     });
   };
 
-  Settings.prototype.handleSearch = function (value) {
+  SettingsComponent.prototype.handleSearch = function (value) {
     var _this = this;
 
     clearTimeout(this.searchTimeout);
@@ -107105,7 +107105,7 @@ var Settings = function (_super) {
     }, 300);
   };
 
-  Settings.prototype.handleCheckboxChange = function (studio, value) {
+  SettingsComponent.prototype.handleCheckboxChange = function (studio, value) {
     var previousStudios = this.props.native.checkedStudios;
 
     if (value) {
@@ -107128,7 +107128,7 @@ var Settings = function (_super) {
     }
   };
 
-  Settings.prototype.renderStudioGridItem = function (studio) {
+  SettingsComponent.prototype.renderStudioGridItem = function (studio) {
     var _this = this;
 
     return react_1.default.createElement(core_1.Grid, {
@@ -107151,11 +107151,11 @@ var Settings = function (_super) {
     }));
   };
 
-  Settings.prototype.dataAvailable = function () {
+  SettingsComponent.prototype.dataAvailable = function () {
     return this.state.studios.rsgStudios && this.state.studios.rsgStudios.length > 0 || this.state.studios.fitnessFirstStudios && this.state.studios.fitnessFirstStudios.length > 0 || this.state.studios.fitxStudios && this.state.studios.fitxStudios.length > 0;
   };
 
-  Settings.prototype.render = function () {
+  SettingsComponent.prototype.render = function () {
     var _this = this;
 
     return react_1.default.createElement("div", {
@@ -107187,10 +107187,10 @@ var Settings = function (_super) {
     }))));
   };
 
-  return Settings;
+  return SettingsComponent;
 }(react_1.default.Component);
 
-exports.default = Settings;
+exports.default = SettingsComponent;
 },{"@iobroker/adapter-react/i18n":"../../node_modules/@iobroker/adapter-react/i18n.js","@material-ui/core":"../../node_modules/@material-ui/core/esm/index.js","@material-ui/core/Checkbox":"../../node_modules/@material-ui/core/esm/Checkbox/index.js","@material-ui/core/FormControlLabel":"../../node_modules/@material-ui/core/esm/FormControlLabel/index.js","@material-ui/core/TextField":"../../node_modules/@material-ui/core/esm/TextField/index.js","react":"../../node_modules/react/index.js"}],"services/studio.service.ts":[function(require,module,exports) {
 "use strict";
 
@@ -107236,13 +107236,13 @@ var StudioService = function () {
     this.instance = instance;
   }
 
-  StudioService.prototype.getDataFromBackend = function (checkedStudios) {
+  StudioService.prototype.getStudiosFromBackend = function (checkedStudios) {
     return this.socket.getObject("gym-tracker." + this.instance + ".data").then(function (data) {
-      if (!data) throw new Error(i18n_1.default.t('noDataProvided'));
+      if (!data || !data.native || !data.native.allStudios) throw new Error(i18n_1.default.t('noDataProvided'));
       var result = {};
 
-      for (var company in data.native) {
-        result[company] = data.native[company].reduce(function (acc, studio) {
+      for (var company in data.native.allStudios) {
+        result[company] = data.native.allStudios[company].reduce(function (acc, studio) {
           return __spreadArray(__spreadArray([], acc), [__assign(__assign({}, studio), {
             checked: checkedStudios.some(function (checkedStudio) {
               return checkedStudio.id === studio.id;
@@ -107382,7 +107382,7 @@ var styles_1 = require("@material-ui/core/styles");
 
 var GenericApp_1 = __importDefault(require("@iobroker/adapter-react/GenericApp"));
 
-var settings_1 = __importDefault(require("./components/settings"));
+var settings_component_1 = __importDefault(require("./components/settings.component"));
 
 var studio_service_1 = __importDefault(require("./services/studio.service"));
 
@@ -107430,7 +107430,7 @@ var App = function (_super) {
 
     return react_1.default.createElement("div", {
       className: "App"
-    }, react_1.default.createElement(settings_1.default, {
+    }, react_1.default.createElement(settings_component_1.default, {
       native: this.state.native,
       studioService: new studio_service_1.default(this.socket, this.instance),
       onChange: function onChange(attr, value) {
@@ -107443,7 +107443,7 @@ var App = function (_super) {
 }(GenericApp_1.default);
 
 exports.default = styles_1.withStyles(styles)(App);
-},{"react":"../../node_modules/react/index.js","@material-ui/core/styles":"../../node_modules/@material-ui/core/esm/styles/index.js","@iobroker/adapter-react/GenericApp":"../../node_modules/@iobroker/adapter-react/GenericApp.js","./components/settings":"components/settings.tsx","./services/studio.service":"services/studio.service.ts","./i18n/en.json":"i18n/en.json","./i18n/de.json":"i18n/de.json","./i18n/ru.json":"i18n/ru.json","./i18n/pt.json":"i18n/pt.json","./i18n/nl.json":"i18n/nl.json","./i18n/fr.json":"i18n/fr.json","./i18n/it.json":"i18n/it.json","./i18n/es.json":"i18n/es.json","./i18n/pl.json":"i18n/pl.json","./i18n/zh-cn.json":"i18n/zh-cn.json"}],"index.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","@material-ui/core/styles":"../../node_modules/@material-ui/core/esm/styles/index.js","@iobroker/adapter-react/GenericApp":"../../node_modules/@iobroker/adapter-react/GenericApp.js","./components/settings.component":"components/settings.component.tsx","./services/studio.service":"services/studio.service.ts","./i18n/en.json":"i18n/en.json","./i18n/de.json":"i18n/de.json","./i18n/ru.json":"i18n/ru.json","./i18n/pt.json":"i18n/pt.json","./i18n/nl.json":"i18n/nl.json","./i18n/fr.json":"i18n/fr.json","./i18n/it.json":"i18n/it.json","./i18n/es.json":"i18n/es.json","./i18n/pl.json":"i18n/pl.json","./i18n/zh-cn.json":"i18n/zh-cn.json"}],"index.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -107511,7 +107511,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55479" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59850" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

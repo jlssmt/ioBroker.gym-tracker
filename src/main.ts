@@ -93,12 +93,12 @@ class GymTracker extends utils.Adapter {
                 ...studio,
                 name: `FitnessFirst ${studio.name}`,
             }], []))
-            .then(fitnessFirstStudios => this.extendObjectAsync('data', { native: { fitnessFirstStudios } }))
+            .then(fitnessFirstStudios => this.extendObjectAsync('data', { native: { allStudios: { fitnessFirstStudios } } }))
             .catch(error => this.log.error(error));
 
         await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
             .then(() => GymTracker.getRsgStudios())
-            .then(rsgStudios => this.extendObjectAsync('data', { native: { rsgStudios } }))
+            .then(rsgStudios => this.extendObjectAsync('data', { native: { allStudios: { rsgStudios } } }))
             .catch(error => this.log.error(error));
 
         await this.createAdapterStateIfNotExistsAsync('data', 'data used in backend', 'boolean')
@@ -107,7 +107,7 @@ class GymTracker extends utils.Adapter {
                 ...studio,
                 name: `FitX ${studio.name}`,
             }], []))
-            .then(fitxStudios => this.extendObjectAsync('data', { native: { fitxStudios } }))
+            .then(fitxStudios => this.extendObjectAsync('data', { native: { allStudios: { fitxStudios } } }))
             .catch(error => this.log.error(error));
 
         this.terminate ? this.terminate('All data handled, adapter stopped until next scheduled moment.') : process.exit();

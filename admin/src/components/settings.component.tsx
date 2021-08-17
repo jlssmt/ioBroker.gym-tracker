@@ -38,7 +38,7 @@ class SettingsComponent extends React.Component<SettingsProps, SettingsState> {
     }
 
     private fetchData() {
-        this.props.studioService.getDataFromBackend(this.props.native.checkedStudios)
+        this.props.studioService.getStudiosFromBackend(this.props.native.checkedStudios)
             .then(data => {
                 this.allStudios = data;
                 this.setState(state => ({
