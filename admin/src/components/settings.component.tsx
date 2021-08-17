@@ -18,7 +18,7 @@ interface SettingsState {
     studios: StudiosInterface;
 }
 
-class Settings extends React.Component<SettingsProps, SettingsState> {
+class SettingsComponent extends React.Component<SettingsProps, SettingsState> {
     private searchTimeout: NodeJS.Timeout = {} as NodeJS.Timeout;
     private allStudios: StudiosInterface;
 
@@ -138,4 +138,4 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
     }
 }
 
-export default Settings;
+export default SettingsComponent;
