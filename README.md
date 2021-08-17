@@ -5,11 +5,11 @@
 [![Downloads](https://img.shields.io/npm/dm/iobroker.gym-tracker.svg)](https://www.npmjs.com/package/iobroker.gym-tracker)
 ![Number of Installations (latest)](https://iobroker.live/badges/gym-tracker-installed.svg)
 ![Number of Installations (stable)](https://iobroker.live/badges/gym-tracker-stable.svg)
-[![Dependency Status](https://img.shields.io/david/jlssmt/iobroker.gym-tracker.svg)](https://david-dm.org/jlssmt/iobroker.gym-tracker)
 
 [![NPM](https://nodei.co/npm/iobroker.gym-tracker.png?downloads=true)](https://nodei.co/npm/iobroker.gym-tracker/)
 
-**Tests:** ![Test and Release](https://github.com/jlssmt/ioBroker.gym-tracker/workflows/Test%20and%20Release/badge.svg)
+![Test and Release](https://github.com/jlssmt/ioBroker.gym-tracker/workflows/Test%20and%20Release/badge.svg)
+[![Dependency Status](https://img.shields.io/david/jlssmt/iobroker.gym-tracker.svg)](https://david-dm.org/jlssmt/iobroker.gym-tracker)
 
 ## gym-tracker adapter for ioBroker
 
