@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "gym-tracker",
-        "version": "0.1.5-2",
+        "version": "0.1.5",
         "news": {
+            "0.1.5": {
+                "en": "change state folder structure from studio id to name\nadded logo\nadded translations",
+                "de": "Ändern Sie die Statusordnerstruktur von Studio-ID in Name\nLogo hinzugefügt\nÜbersetzungen hinzugefügt",
+                "ru": "изменить структуру папки состояния с идентификатора студии на имя\nдобавлен логотип\nдобавлены переводы",
+                "pt": "mudar a estrutura da pasta de estado de id do estúdio para o nome\nlogotipo adicionado\nadicionei traduções",
+                "nl": "verander de mapstructuur van de staat van studio-ID naar naam\ntoegevoegd logo\ntoegevoegde vertalingen",
+                "fr": "changer la structure du dossier d'état de l'identifiant du studio au nom\nlogo ajouté\ntraductions ajoutées",
+                "it": "cambia la struttura della cartella di stato da ID studio a nome\nlogo aggiunto\ntraduzioni aggiunte",
+                "es": "cambiar la estructura de la carpeta de estado de la identificación del estudio al nombre\nlogo añadido\ntraducciones agregadas",
+                "pl": "zmień strukturę folderów stanu z identyfikatora studia na nazwę\ndodane logo\ndodane tłumaczenia",
+                "zh-cn": "将状态文件夹结构从工作室 ID 更改为名称\n添加徽标\n添加翻译"
+            },
             "0.1.5-2": {
                 "en": "change state folder structure from studio id to name",
                 "de": "Ändern Sie die Statusordnerstruktur von Studio-ID in Name",

@@ -23,7 +23,7 @@ This way the utilization can be f.e. integrated into iobroker VIS or send to you
     ### **WORK IN PROGRESS**
 -->
 
-### **WORK IN PROGRESS**
+### 0.1.5 (2021-08-17)
 * (jlssmt) change state folder structure from studio id to name
 * (jlssmt) added logo
 * (jlssmt) added translations
