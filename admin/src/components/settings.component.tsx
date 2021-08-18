@@ -54,9 +54,11 @@ class SettingsComponent extends React.Component<SettingsProps, SettingsState> {
         this.searchTimeout = setTimeout(() => {
             this.setState(state => ({
                 ...state,
-                rsgStudios: this.allStudios.rsgStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
-                fitnessFirstStudios: this.allStudios.fitnessFirstStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
-                fitxStudios: this.allStudios.fitxStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
+                studios: {
+                    rsgStudios: this.allStudios.rsgStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
+                    fitnessFirstStudios: this.allStudios.fitnessFirstStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
+                    fitxStudios: this.allStudios.fitxStudios.filter(studio => studio.name.toLowerCase().includes(value.toLowerCase())),
+                },
             }));
         }, 300);
     }
